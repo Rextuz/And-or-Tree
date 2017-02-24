@@ -11,7 +11,7 @@ public:
 
 private:
     // template contains lexical tree
-    LexicalTree tree;
+    LexicalTree *tree;
 };
 
 #endif // CONTENTTEMPLATE_H

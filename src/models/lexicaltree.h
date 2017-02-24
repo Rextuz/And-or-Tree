@@ -7,7 +7,7 @@
 class LexicalTree : public AndOrTree
 {
 public:
-    LexicalTree();
+    LexicalTree(NodeType type);
 };
 
 #endif // LEXICALTREE_H

@@ -1,6 +1,6 @@
 #include "lexicaltree.h"
 
-LexicalTree::LexicalTree()
+LexicalTree::LexicalTree(NodeType type) : AndOrTree(type)
 {
 
 }
