@@ -1,29 +1,33 @@
 #include "mainmenu.h"
-#include <QGroupBox>
 
 MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 {
     parent->setWindowTitle("Main Menu");
 
-    QHBoxLayout *h1Layout = new QHBoxLayout;
-    QPushButton *b1 = new QPushButton("A");
-    QPushButton *b2 = new QPushButton("B");
-    QPushButton *b3 = new QPushButton("C");
-    h1Layout->addWidget(b1);
-    h1Layout->addWidget(b2);
-    h1Layout->addWidget(b3);
+    mainLayout = new QVBoxLayout();
 
-    QHBoxLayout *h2Layout = new QHBoxLayout;
-    QPushButton *b4 = new QPushButton("D");
-    QPushButton *b5 = new QPushButton("E");
-    QPushButton *b6 = new QPushButton("+");
-    connect(b6, SIGNAL (released()), parent, SLOT (handleNewTemplateButton()));
-    h2Layout->addWidget(b4);
-    h2Layout->addWidget(b5);
-    h2Layout->addWidget(b6);
+    QFont font;
+    font.setPointSize(12);
 
-    mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(h1Layout);
-    mainLayout->addLayout(h2Layout);
+    label = new QLabel("Templates");
+    label->setFont(font);
+    label->setAlignment(Qt::AlignCenter);
+    mainLayout->addWidget(label);
+
+    for(int i = 0; i < 5; i++)
+    {
+        QHBoxLayout *hLayout = new QHBoxLayout();
+        for(int j = 0; j < 4; j++)
+        {
+            QPushButton *b = new QPushButton("joke++");
+            connect(b, SIGNAL (released()), parent, SLOT (handleNewTemplateButton()));
+            b->setMinimumHeight(70);
+            b->setMinimumWidth(100);
+            b->setFont(font);
+            hLayout->addWidget(b);
+        }
+        mainLayout->addLayout(hLayout);
+    }
+
     setLayout(mainLayout);
 }

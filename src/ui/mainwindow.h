@@ -18,12 +18,10 @@ private slots:
     void handleExsistTemplateButton();
     void handleNewTemplateButton();
     void handleBackAction();
-    void handleSaveAction();
-    void handleDeleteAction();
 
 private:
-    MainMenu* mainMenu;
-    TemplateMenu* templateMenu;
+    MainMenu *mainMenu;
+    TemplateMenu *templateMenu;
 };
 
 #endif // MAINWINDOW_H

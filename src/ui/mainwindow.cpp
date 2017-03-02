@@ -30,13 +30,3 @@ void MainWindow::handleBackAction()
     mainMenu = new MainMenu(this);
     setCentralWidget(mainMenu);
 }
-
-void MainWindow::handleSaveAction()
-{
-
-}
-
-void MainWindow::handleDeleteAction()
-{
-
-}

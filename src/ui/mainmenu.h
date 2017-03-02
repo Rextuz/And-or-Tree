@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QLabel>
 
 class MainMenu : public QWidget
 {
@@ -15,6 +16,7 @@ public:
 
 private:
     QVBoxLayout *mainLayout;
+    QLabel *label;
 };
 
 #endif // MAINMENU_H
