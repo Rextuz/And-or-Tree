@@ -14,6 +14,13 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void handleExsistTemplateButton();
+    void handleNewTemplateButton();
+    void handleBackAction();
+    void handleSaveAction();
+    void handleDeleteAction();
+
 private:
     MainMenu* mainMenu;
     TemplateMenu* templateMenu;

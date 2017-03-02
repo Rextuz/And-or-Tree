@@ -2,16 +2,19 @@
 #define MAINMENU_H
 
 #include <QWidget>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 class MainMenu : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit MainMenu(QWidget *parent = 0);
 
-signals:
-
-public slots:
+private:
+    QVBoxLayout *mainLayout;
 };
 
 #endif // MAINMENU_H
