@@ -10,12 +10,20 @@ int main(int argc, char *argv[])
     w.show();
 
     // Tree test
+    // Create tree
     AndOrTree *tree = new AndOrTree(t_or);
-    AndOrTree::Node *node1 = tree->addNode(tree->root, t_and);
-    AndOrTree::Node *node2 = tree->addNode(tree->root, t_or);
+
+    // Add nodes
+    Node *node1 = tree->addNode(tree->getRoot(), t_and);
+    Node *node2 = tree->addNode(tree->getRoot(), t_or);
     tree->addNode(node1, t_or);
     tree->addNode(node2, t_or);
-    tree->addNode(node2, t_and);
+    Node *node3 = tree->addNode(node2, t_and);
+
+    // Add leaf
+    int val = 42;
+    int *valp = &val;
+    tree->addLeaf(node3, valp);
     // End of Tree test
 
     return a.exec();

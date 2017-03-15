@@ -1,37 +1,19 @@
 #ifndef ANDORTREE_H
 #define ANDORTREE_H
 
-#include <list>
-
-enum NodeType { t_and, t_or };
+#include "node.h"
 
 // polymorphic tree container
 class AndOrTree
 {
-public:
-    class Node {
-    private:
-        std::list<Node*> children;
-    public:
-        Node();
-        void addChild(Node *node);
-        void *value;
-    };
-
-    class OrNode : public Node {
-    public:
-        OrNode();
-    };
-
-    class AndNode : public Node {
-    public:
-        AndNode();
-    };
-
+private:
     Node *root;
 
+public:
     AndOrTree(NodeType type);
     Node *addNode(Node *parent, NodeType type);
+    Node *addLeaf(Node *parent, void *data);
+    Node *getRoot();
     ~AndOrTree();
 };
 

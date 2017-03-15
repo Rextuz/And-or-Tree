@@ -1,50 +1,36 @@
 #include "andortree.h"
 
-// Tree constructor
+/*
+ * Tree constructor
+ *      type = type for the root node
+ */
 AndOrTree::AndOrTree(NodeType type)
 {
-    if (type == t_or)
-        root = new OrNode();
-    else
-        root = new AndNode();
+    root = new Node(type);
 }
 
-AndOrTree::Node *AndOrTree::addNode(Node *parent, NodeType type)
+Node *AndOrTree::addNode(Node *parent, NodeType type)
 {
-    Node *newNode;
-    if (type == t_or)
-        newNode = new OrNode();
-    else if (type == t_and)
-        newNode = new AndNode();
+    Node *newNode = new Node(type);
     parent->addChild(newNode);
     return newNode;
 }
 
+Node *AndOrTree::addLeaf(Node *parent, void *data)
+{
+    Node *newNode = new Node(data);
+    parent->addChild(newNode);
+    return newNode;
+}
+
+// Returns root element
+Node *AndOrTree::getRoot()
+{
+    return root;
+}
+
 // Tree destructor
 AndOrTree::~AndOrTree()
-{
-
-}
-
-// Tree node
-AndOrTree::Node::Node()
-{
-
-}
-
-// Add child to a node
-void AndOrTree::Node::addChild(Node *node) {
-    children.push_back(node);
-}
-
-// Or Node
-AndOrTree::OrNode::OrNode()
-{
-
-}
-
-// And node
-AndOrTree::AndNode::AndNode()
 {
 
 }

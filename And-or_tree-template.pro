@@ -29,7 +29,8 @@ SOURCES += src/logic/main.cpp \
     src/logic/contentbuilder.cpp \
     src/ui/templatemenu.cpp \
     src/logic/taskbuilder.cpp \
-    src/logic/jokebuilder.cpp
+    src/logic/jokebuilder.cpp \
+    src/models/node.cpp
 
 HEADERS  += src/ui/mainwindow.h \
     src/models/andortree.h \
@@ -47,7 +48,8 @@ HEADERS  += src/ui/mainwindow.h \
     src/logic/contentbuilder.h \
     src/ui/templatemenu.h \
     src/logic/taskbuilder.h \
-    src/logic/jokebuilder.h
+    src/logic/jokebuilder.h \
+    src/models/node.h
 
 RESOURCES += \
     res/default_jokes.qrc \
