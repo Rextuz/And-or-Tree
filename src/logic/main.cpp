@@ -2,6 +2,7 @@
 #include <QApplication>
 
 #include "src/models/andortree.h"
+#include "src/logic/storage.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +26,16 @@ int main(int argc, char *argv[])
     int *valp = &val;
     tree->addLeaf(node3, valp);
     // End of Tree test
+
+    // Create storage of objects and load data from disk
+    Storage& storage = Storage::Instance();
+    storage.loadData();
+
+    // Add something
+    LexicalTree* nothing = nullptr;
+    ContentTemplate contentTemplate1("Template 1", "the cake is a lie", nothing);
+    storage.push(&contentTemplate1);
+    storage.printData();
 
     return a.exec();
 }

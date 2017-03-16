@@ -6,6 +6,8 @@
 
 QT       += core gui
 
+QMAKE_CXXFLAGS += -std=c++0x
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = And-or_tree-template
@@ -30,7 +32,8 @@ SOURCES += src/logic/main.cpp \
     src/ui/templatemenu.cpp \
     src/logic/taskbuilder.cpp \
     src/logic/jokebuilder.cpp \
-    src/models/node.cpp
+    src/models/node.cpp \
+    src/logic/storage.cpp
 
 HEADERS  += src/ui/mainwindow.h \
     src/models/andortree.h \
@@ -49,7 +52,8 @@ HEADERS  += src/ui/mainwindow.h \
     src/ui/templatemenu.h \
     src/logic/taskbuilder.h \
     src/logic/jokebuilder.h \
-    src/models/node.h
+    src/models/node.h \
+    src/logic/storage.h
 
 RESOURCES += \
     res/default_jokes.qrc \
