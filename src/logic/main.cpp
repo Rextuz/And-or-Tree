@@ -2,7 +2,11 @@
 #include <QApplication>
 
 #include "src/models/andortree.h"
+#include "src/models/joketemplate.h"
 #include "src/logic/storage.h"
+#include "src/logic/ctcreator.h"
+#include "src/logic/joketemplatecreator.h"
+#include "src/logic/tasktemplatecreator.h"
 
 int main(int argc, char *argv[])
 {
@@ -31,11 +35,22 @@ int main(int argc, char *argv[])
     Storage& storage = Storage::Instance();
     storage.loadData();
 
-    // Add something
-    LexicalTree* nothing = nullptr;
-    ContentTemplate contentTemplate1("Template 1", "the cake is a lie", nothing);
-    storage.push(&contentTemplate1);
+    // Use Factory methods to create templates
+    CTCreator* creator1 = new JokeTemplateCreator();
+    CTCreator* creator2 = new TaskTemplateCreator();
+    ContentTemplate* contentTemplate1 = creator1->createTemplate("I'm a joke");
+    ContentTemplate* contentTemplate2 = creator2->createTemplate("I'm a task");
+    storage.save(contentTemplate1);
+    storage.save(contentTemplate2);
+
+    // Print storage
     storage.printData();
+
+    // Generate somethings
+    Content* content1 = contentTemplate1->generateContent();
+    std::cout << "content1 = " << content1->getStr() << "\n";
+    Content* content2 = contentTemplate2->generateContent();
+    std::cout << "content2 = " << content2->getStr() << "\n";
 
     return a.exec();
 }

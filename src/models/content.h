@@ -8,6 +8,7 @@ class Content
 {
 public:
     Content();
+    Content(const std::string &value);
 
     std::string getStr() const;
     void setStr(const std::string &value);

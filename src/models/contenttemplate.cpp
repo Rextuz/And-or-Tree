@@ -3,9 +3,9 @@
 // init static variable
 int ContentTemplate::newUID = 0;
 
-ContentTemplate::ContentTemplate() : uid(newUID++)
+ContentTemplate::ContentTemplate(std::string title) : uid(newUID++)
 {
-    title = "noname";
+    this->title = title;
     text = "put text here";
     tree = NULL; // здесь нужно будет создавать изначальное дерево
 }

@@ -11,7 +11,8 @@ public:
     static Storage& Instance();
 
     void loadData();
-    void push(ContentTemplate* ContentTemplate);
+    void push(ContentTemplate* contentTemplate);
+    void save(ContentTemplate* contentTemplate);
     void printData();
 
 private:

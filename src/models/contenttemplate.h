@@ -2,14 +2,17 @@
 #define CONTENTTEMPLATE_H
 
 #include "lexicaltree.h"
+#include "content.h"
 #include <string>
 
 // contains a template of text and a tree
 class ContentTemplate
 {
 public:
-    ContentTemplate();
+    ContentTemplate(std::string title);
     ContentTemplate(std::string title, std::string text, LexicalTree* tree);
+
+    virtual Content* generateContent() = 0;
 
     std::string getTitle() const;
     std::string getText() const;

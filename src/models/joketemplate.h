@@ -2,11 +2,15 @@
 #define JOKETEMPLATE_H
 
 #include "contenttemplate.h"
+#include "content.h"
 
 class JokeTemplate : public ContentTemplate
 {
 public:
-    JokeTemplate();
+    JokeTemplate(std::string title);
+    JokeTemplate(std::string title, std::string text, LexicalTree* tree);
+
+    Content* generateContent();
 };
 
 #endif // JOKETEMPLATE_H

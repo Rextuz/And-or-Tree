@@ -20,40 +20,29 @@ SOURCES += src/logic/main.cpp \
     src/models/lexicaltree.cpp \
     src/ui/mainmenu.cpp \
     src/models/content.cpp \
-    src/models/joke.cpp \
-    src/models/task.cpp \
     src/models/contenttemplate.cpp \
     src/models/joketemplate.cpp \
     src/models/tasktemplate.cpp \
-    src/logic/contenttemplateprototype.cpp \
-    src/logic/joketemplateprototype.cpp \
-    src/logic/tasktemplateprototype.cpp \
-    src/logic/contentbuilder.cpp \
     src/ui/templatemenu.cpp \
-    src/logic/taskbuilder.cpp \
-    src/logic/jokebuilder.cpp \
     src/models/node.cpp \
-    src/logic/storage.cpp
+    src/logic/storage.cpp \
+    src/logic/joketemplatecreator.cpp \
+    src/logic/tasktemplatecreator.cpp
 
 HEADERS  += src/ui/mainwindow.h \
     src/models/andortree.h \
     src/models/lexicaltree.h \
     src/ui/mainmenu.h \
     src/models/content.h \
-    src/models/joke.h \
-    src/models/task.h \
     src/models/contenttemplate.h \
     src/models/joketemplate.h \
     src/models/tasktemplate.h \
-    src/logic/contenttemplateprototype.h \
-    src/logic/joketemplateprototype.h \
-    src/logic/tasktemplateprototype.h \
-    src/logic/contentbuilder.h \
     src/ui/templatemenu.h \
-    src/logic/taskbuilder.h \
-    src/logic/jokebuilder.h \
     src/models/node.h \
-    src/logic/storage.h
+    src/logic/storage.h \
+    src/logic/ctcreator.h \
+    src/logic/joketemplatecreator.h \
+    src/logic/tasktemplatecreator.h
 
 RESOURCES += \
     res/default_jokes.qrc \

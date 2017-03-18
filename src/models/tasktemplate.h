@@ -2,11 +2,15 @@
 #define TASKTEMPLATE_H
 
 #include "contenttemplate.h"
+#include "content.h"
 
 class TaskTemplate : public ContentTemplate
 {
 public:
-    TaskTemplate();
+    TaskTemplate(std::string title);
+    TaskTemplate(std::string title, std::string text, LexicalTree* tree);
+
+    Content* generateContent();
 };
 
 #endif // TASKTEMPLATE_H

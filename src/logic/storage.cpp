@@ -20,9 +20,14 @@ void Storage::push(ContentTemplate *contentTemplate)
     data.push_back(contentTemplate);
 }
 
+void Storage::save(ContentTemplate *contentTemplate)
+{
+    std::cout << "Template '" << contentTemplate->getTitle()<<"' saved to disk" << "\n";
+}
+
 void Storage::printData()
 {
     for(unsigned int i=0; i<data.size(); ++i){
-        std::cout << i << " element: " << data[i]->getTitle() << " - " << data[i]->getText() << "\n";
+        std::cout << (i+1) << " element (uid="<<data[i]->getUid()<<"): " << data[i]->getTitle() << " - " << data[i]->getText() << "\n";
     }
 }
