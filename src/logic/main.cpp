@@ -23,13 +23,18 @@ int main(int argc, char *argv[])
     Node *node2 = tree->addNode(tree->getRoot(), t_or);
     tree->addNode(node1, t_or);
     tree->addNode(node2, t_or);
-    Node *node3 = tree->addNode(node2, t_and);
-
-    // Add leaf
-    int val = 42;
-    int *valp = &val;
-    tree->addLeaf(node3, valp);
+    tree->addNode(node2, t_and);
     // End of Tree test
+
+    // LexicalTree test
+    LexicalTree *ltree = new LexicalTree(t_or);
+    Node *lnode1 = ltree->addNode(tree->getRoot(), t_or);
+    Node *lnode2 = ltree->addNode(tree->getRoot(), t_or);
+    Node *lnode3 = ltree->addNode(lnode2, t_or);
+    ltree->addLeaf(lnode1, "A", "hello");
+    ltree->addLeaf(lnode3, "B", "world");
+    ltree->addLeaf(lnode3, "C", "mthrfckr");
+    // End of LexicalTree test
 
     // Create storage of objects and load data from disk
     Storage& storage = Storage::Instance();

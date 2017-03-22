@@ -9,10 +9,12 @@ class AndOrTree
 private:
     Node *root;
 
+protected:
+    Node *addLeaf(Node *parent, void *data);
+
 public:
     AndOrTree(NodeType type);
     Node *addNode(Node *parent, NodeType type);
-    Node *addLeaf(Node *parent, void *data);
     Node *getRoot();
     ~AndOrTree();
 };
