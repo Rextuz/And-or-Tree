@@ -31,7 +31,7 @@ public:
 };
 
 // tree with data like "A"="xyz"
-class LexicalTree : public AndOrTree
+class LexicalTree : public AndOrTree<LexicalPair>
 {
 public:
     LexicalTree(NodeType type);

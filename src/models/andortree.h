@@ -3,19 +3,19 @@
 
 #include "node.h"
 
-// polymorphic tree container
+// Polymorphic tree container
+template <class T>
 class AndOrTree
 {
 private:
     Node *root;
-
-protected:
-    Node *addLeaf(Node *parent, void *data);
+    T *value;
 
 public:
     AndOrTree(NodeType type);
-    Node *addNode(Node *parent, NodeType type);
-    Node *getRoot();
+    virtual Node *addNode(Node *parent, NodeType type);
+    virtual Node *addLeaf(Node *parent, T *data);
+    virtual Node *getRoot();
     ~AndOrTree();
 };
 

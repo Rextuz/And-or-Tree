@@ -4,19 +4,22 @@
  * Tree constructor
  *      type = type for the root node
  */
-AndOrTree::AndOrTree(NodeType type)
+template <class T>
+AndOrTree<T>::AndOrTree(NodeType type)
 {
     root = new Node(type);
 }
 
-Node *AndOrTree::addNode(Node *parent, NodeType type)
+template <class T>
+Node *AndOrTree<T>::addNode(Node *parent, NodeType type)
 {
     Node *newNode = new Node(type);
     parent->addChild(newNode);
     return newNode;
 }
 
-Node *AndOrTree::addLeaf(Node *parent, void *data)
+template <class T>
+Node *AndOrTree<T>::addLeaf(Node *parent, T *data)
 {
     Node *newNode = new Node(data);
     parent->addChild(newNode);
@@ -24,13 +27,15 @@ Node *AndOrTree::addLeaf(Node *parent, void *data)
 }
 
 // Returns root element
-Node *AndOrTree::getRoot()
+template <class T>
+Node *AndOrTree<T>::getRoot()
 {
     return root;
 }
 
 // Tree destructor
-AndOrTree::~AndOrTree()
+template <class T>
+AndOrTree<T>::~AndOrTree()
 {
 
 }
