@@ -11,8 +11,8 @@ Storage &Storage::Instance()
 
 void Storage::loadData()
 {
-    char* userDir = "C:\\Users\\Denis\\Documents\\AndOrTree\\data.cfg\n";
-    qDebug() << "Config loaded from "<<userDir;
+    const char *userDir = "C:\\Users\\Denis\\Documents\\AndOrTree\\data.cfg\n";
+    qDebug() << "Config loaded from " << userDir;
 }
 
 void Storage::push(ContentTemplate *contentTemplate)

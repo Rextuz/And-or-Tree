@@ -10,7 +10,7 @@ ContentTemplate::ContentTemplate(std::string title) : uid(newUID++)
     tree = NULL; // здесь нужно будет создавать изначальное дерево
 }
 
-ContentTemplate::ContentTemplate(std::string title, std::string text, LexicalTree *tree) : uid(newUID++)
+ContentTemplate::ContentTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree) : uid(newUID++)
 {
     this->title = title;
     this->text = text;
@@ -27,7 +27,7 @@ std::string ContentTemplate::getText() const
     return text;
 }
 
-LexicalTree *ContentTemplate::getTree() const
+AndOrTree<LexicalPair> *ContentTemplate::getTree() const
 {
     return tree;
 }

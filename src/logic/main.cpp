@@ -1,7 +1,8 @@
 #include "src/ui/mainwindow.h"
 #include <QApplication>
 
-#include "src/models/andortree.h"
+#include "../models/andortree.h"
+#include "src/models/lexicalpair.h"
 #include "src/models/joketemplate.h"
 #include "src/logic/storage.h"
 #include "src/logic/ctcreator.h"
@@ -16,25 +17,15 @@ int main(int argc, char *argv[])
 
     // Tree test
     // Create tree
-    AndOrTree *tree = new AndOrTree(t_or);
+    AndOrTree<LexicalPair> *tree = new AndOrTree<LexicalPair>(t_or);
 
     // Add nodes
-    Node *node1 = tree->addNode(tree->getRoot(), t_and);
-    Node *node2 = tree->addNode(tree->getRoot(), t_or);
+    Node<LexicalPair> *node1 = tree->addNode(tree->getRoot(), t_and);
+    Node<LexicalPair> *node2 = tree->addNode(tree->getRoot(), t_or);
     tree->addNode(node1, t_or);
     tree->addNode(node2, t_or);
     tree->addNode(node2, t_and);
     // End of Tree test
-
-    // LexicalTree test
-    LexicalTree *ltree = new LexicalTree(t_or);
-    Node *lnode1 = ltree->addNode(tree->getRoot(), t_or);
-    Node *lnode2 = ltree->addNode(tree->getRoot(), t_or);
-    Node *lnode3 = ltree->addNode(lnode2, t_or);
-    ltree->addLeaf(lnode1, "A", "hello");
-    ltree->addLeaf(lnode3, "B", "world");
-    ltree->addLeaf(lnode3, "C", "mthrfckr");
-    // End of LexicalTree test
 
     // Create storage of objects and load data from disk
     Storage& storage = Storage::Instance();
