@@ -8,7 +8,7 @@ class JokeTemplate : public ContentTemplate
 {
 public:
     JokeTemplate(std::string title);
-    JokeTemplate(std::string title, std::string text, LexicalTree* tree);
+    JokeTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree);
 
     Content* generateContent();
 };

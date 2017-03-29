@@ -8,7 +8,7 @@ class TaskTemplate : public ContentTemplate
 {
 public:
     TaskTemplate(std::string title);
-    TaskTemplate(std::string title, std::string text, LexicalTree* tree);
+    TaskTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree);
 
     Content* generateContent();
 };

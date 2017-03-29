@@ -5,7 +5,7 @@ JokeTemplate::JokeTemplate(std::string title) : ContentTemplate(title)
 
 }
 
-JokeTemplate::JokeTemplate(std::string title, std::string text, LexicalTree *tree)
+JokeTemplate::JokeTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree)
     : ContentTemplate(title, text, tree)
 {
 

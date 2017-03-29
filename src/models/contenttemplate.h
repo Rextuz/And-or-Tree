@@ -1,8 +1,9 @@
 #ifndef CONTENTTEMPLATE_H
 #define CONTENTTEMPLATE_H
 
-#include "lexicaltree.h"
 #include "content.h"
+#include "andortree.h"
+#include "lexicalpair.h"
 #include <string>
 
 // contains a template of text and a tree
@@ -10,13 +11,13 @@ class ContentTemplate
 {
 public:
     ContentTemplate(std::string title);
-    ContentTemplate(std::string title, std::string text, LexicalTree* tree);
+    ContentTemplate(std::string title, std::string text, AndOrTree<LexicalPair>* tree);
 
     virtual Content* generateContent() = 0;
 
     std::string getTitle() const;
     std::string getText() const;
-    LexicalTree *getTree() const;
+    AndOrTree<LexicalPair> *getTree() const;
     int getUid() const;
 
 private:
@@ -25,7 +26,7 @@ private:
     const int uid;
     std::string title;
     std::string text;
-    LexicalTree *tree;
+    AndOrTree<LexicalPair> *tree;
 };
 
 #endif // CONTENTTEMPLATE_H
