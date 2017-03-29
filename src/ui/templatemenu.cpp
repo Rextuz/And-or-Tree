@@ -13,15 +13,14 @@ TemplateMenu::TemplateMenu(QWidget *parent) : QWidget(parent)
     deleteAction = menuBar->addAction("&Delete");
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(handleDeleteAction()));
 
-    QFont font;
-    font.setPointSize(13);
+    font.setPointSize(20);
     templateLabel = new QLabel("Template");
     templateLabel->setFont(font);
     templateLabel->setAlignment(Qt::AlignCenter);
     treeLabel = new QLabel("Tree");
     treeLabel->setFont(font);
     treeLabel->setAlignment(Qt::AlignCenter);
-    font.setPointSize(12);
+    font.setPointSize(14);
     templateText = new QTextEdit("Template");
     templateText->setFont(font);
     treeText = new QTextEdit("Tree");

@@ -6,28 +6,53 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 
     mainLayout = new QVBoxLayout();
 
-    QFont font;
-    font.setPointSize(12);
+    font.setPointSize(20);
 
     label = new QLabel("Templates");
     label->setFont(font);
+    label->setMaximumHeight(40);
+    label->setMinimumHeight(40);
     label->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(label);
 
-    for(int i = 0; i < 5; i++)
+    // Count = number of exsist templates
+    int count = 33;
+    int rows = count / 4 + 1;
+
+    for(int i = 0; i < rows; i++)
     {
         QHBoxLayout *hLayout = new QHBoxLayout();
-        for(int j = 0; j < 4; j++)
+
+        int j;
+
+        for(j = 0; j < 4 && count > 0; j++, count--)
         {
-            QPushButton *b = new QPushButton("joke++");
-            connect(b, SIGNAL (released()), parent, SLOT (handleNewTemplateButton()));
-            b->setMinimumHeight(70);
-            b->setMinimumWidth(100);
-            b->setFont(font);
-            hLayout->addWidget(b);
+            QPushButton *button = new QPushButton("exsist");
+            connect(button, SIGNAL (released()), parent, SLOT (handleExsistTemplateButton()));
+            button->setFont(font);
+            button->setMinimumHeight(100);
+            button->setMaximumWidth(200);
+            hLayout->addWidget(button);
         }
+
+        if((count == 0) && (j < 4))
+        {
+            QPushButton *newButton = new QPushButton("+");
+            connect(newButton, SIGNAL (released()), parent, SLOT (handleNewTemplateButton()));
+            newButton->setFont(font);
+            newButton->setMinimumHeight(100);
+            newButton->setMaximumWidth(200);
+            hLayout->addWidget(newButton);
+        }
+
         mainLayout->addLayout(hLayout);
     }
 
-    setLayout(mainLayout);
+    scrollArea = new QScrollArea(this);
+    scrollArea->setFixedSize(1000, 800);
+    scrollArea->setWidgetResizable(true);
+
+    innerWidget = new QWidget(scrollArea);
+    innerWidget->setLayout(mainLayout);
+    scrollArea->setWidget(innerWidget);
 }

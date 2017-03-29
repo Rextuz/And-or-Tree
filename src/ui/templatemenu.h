@@ -27,6 +27,7 @@ private:
     QAction *backAction, *saveAction, *deleteAction;
     QTextEdit *templateText, *treeText;
     QLabel *templateLabel, *treeLabel;
+    QFont font;
 };
 
 #endif // TEMPLATEMENU_H

@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QScrollArea>
 
 class MainMenu : public QWidget
 {
@@ -16,7 +17,10 @@ public:
 
 private:
     QVBoxLayout *mainLayout;
+    QScrollArea *scrollArea;
+    QWidget *innerWidget;
     QLabel *label;
+    QFont font;
 };
 
 #endif // MAINMENU_H

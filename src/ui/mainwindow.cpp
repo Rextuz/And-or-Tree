@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setWindowIcon(QIcon(":/resource/images/tree.jpg"));
-    resize(600, 600);
+    setFixedSize(1000, 800);
     mainMenu = new MainMenu(this);
     setCentralWidget(mainMenu);
 }
