@@ -1,7 +1,6 @@
 #include "templatemenu.h"
-#include <QDebug>
 
-TemplateMenu::TemplateMenu(QWidget *parent) : QWidget(parent)
+TemplateMenu::TemplateMenu(QWidget *parent, QString state) : QWidget(parent)
 {
     parent->setWindowTitle("Template Menu");
 
@@ -21,10 +20,19 @@ TemplateMenu::TemplateMenu(QWidget *parent) : QWidget(parent)
     treeLabel->setFont(font);
     treeLabel->setAlignment(Qt::AlignCenter);
     font.setPointSize(14);
-    templateText = new QTextEdit("Template");
-    templateText->setFont(font);
-    treeText = new QTextEdit("Tree");
-    treeText->setFont(font);
+
+    if(state.isNull()) {
+        templateText = new QTextEdit("New Template");
+        templateText->setFont(font);
+        treeText = new QTextEdit("Tree");
+        treeText->setFont(font);
+    } else {
+        Storage& storage = Storage::Instance();
+        templateText = new QTextEdit(storage.loadTemplate(state));
+        templateText->setFont(font);
+        treeText = new QTextEdit("Tree");
+        treeText->setFont(font);
+    }
 
     mainLayout = new QVBoxLayout();
     mainLayout->setMenuBar(menuBar);

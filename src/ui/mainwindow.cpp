@@ -15,13 +15,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::handleExsistTemplateButton()
 {
-    templateMenu = new TemplateMenu(this);
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    templateMenu = new TemplateMenu(this, button->text());
     setCentralWidget(templateMenu);
 }
 
 void MainWindow::handleNewTemplateButton()
 {
-    templateMenu = new TemplateMenu(this);
+    templateMenu = new TemplateMenu(this, NULL);
     setCentralWidget(templateMenu);
 }
 

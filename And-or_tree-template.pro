@@ -43,5 +43,5 @@ HEADERS  += src/ui/mainwindow.h \
     src/models/lexicalpair.h
 
 RESOURCES += \
-    res/default_jokes.qrc \
-    res/images.qrc
+    res/images.qrc \
+    res/templates.qrc

@@ -11,10 +11,6 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
     // Tree test
     // Create tree
     AndOrTree<LexicalPair> *tree = new AndOrTree<LexicalPair>(t_or);
@@ -29,7 +25,7 @@ int main(int argc, char *argv[])
 
     // Create storage of objects and load data from disk
     Storage& storage = Storage::Instance();
-    storage.loadData();
+    storage.loadList();
 
     // Use Factory methods to create templates
     CTCreator* creator1 = new JokeTemplateCreator();
@@ -47,6 +43,10 @@ int main(int argc, char *argv[])
     std::cout << "content1 = " << content1->getStr() << "\n";
     Content* content2 = contentTemplate2->generateContent();
     std::cout << "content2 = " << content2->getStr() << "\n";
+
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
 
     return a.exec();
 }

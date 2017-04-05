@@ -15,8 +15,9 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
     label->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(label);
 
-    // Count = number of exsist templates
-    int count = 33;
+    Storage& storage = Storage::Instance();
+
+    int count = storage.getSize();
     int rows = count / 4 + 1;
 
     for(int i = 0; i < rows; i++)
@@ -27,7 +28,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 
         for(j = 0; j < 4 && count > 0; j++, count--)
         {
-            QPushButton *button = new QPushButton("exsist");
+            QPushButton *button = new QPushButton(storage.getTemplate(count - 1));
             connect(button, SIGNAL (released()), parent, SLOT (handleExsistTemplateButton()));
             button->setFont(font);
             button->setMinimumHeight(100);

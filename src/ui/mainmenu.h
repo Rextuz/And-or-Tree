@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QScrollArea>
+#include "src/logic/storage.h"
 
 class MainMenu : public QWidget
 {
