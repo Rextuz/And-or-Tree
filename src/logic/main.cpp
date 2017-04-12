@@ -1,5 +1,10 @@
 #include "src/ui/mainwindow.h"
 #include <QApplication>
+#include <time.h>   // for random
+
+#include <iostream> // for output
+using std::cout;
+using std::endl;
 
 #include "../models/andortree.h"
 #include "src/models/lexicalpair.h"
@@ -13,14 +18,35 @@ int main(int argc, char *argv[])
 {
     // Tree test
     // Create tree
-    AndOrTree<LexicalPair> *tree = new AndOrTree<LexicalPair>(t_or);
+    AndOrTree<LexicalPair> *tree = new AndOrTree<LexicalPair>(t_and);
 
-    // Add nodes
-    Node<LexicalPair> *node1 = tree->addNode(tree->getRoot(), t_and);
-    Node<LexicalPair> *node2 = tree->addNode(tree->getRoot(), t_or);
-    tree->addNode(node1, t_or);
-    tree->addNode(node2, t_or);
-    tree->addNode(node2, t_and);
+    Node<LexicalPair> *characters = tree->addNode(tree->getRoot(), t_or);
+    Node<LexicalPair> *actions = tree->addNode(tree->getRoot(), t_and);
+    Node<LexicalPair> *actions_what = tree->addNode(actions, t_and);
+    Node<LexicalPair> *actions_where = tree->addNode(actions, t_or);
+
+    // Populate with characters
+    tree->addLeaf(characters, new LexicalPair("A", "Max"));
+    tree->addLeaf(characters, new LexicalPair("A", "Denis"));
+    tree->addLeaf(characters, new LexicalPair("A", "Efim"));
+
+    // Populate with actions
+    tree->addLeaf(actions_what, new LexicalPair("B", "Dance"));
+    tree->addLeaf(actions_what, new LexicalPair("B", "Sing"));
+    tree->addLeaf(actions_where, new LexicalPair("C", "At home"));
+    tree->addLeaf(actions_where, new LexicalPair("C", "In the forest"));
+
+    // getDictionary() test
+    cout << "\n-----Dictionary-----" << endl;
+    vector<LexicalPair*> *dictionary = new vector<LexicalPair*>();
+    LexicalPair::getDictionary(tree->getRoot(), time(nullptr), dictionary);
+    for (unsigned int i = 0; i < dictionary->size(); i++)
+    {
+        LexicalPair *pair = dictionary->at(i);
+        cout << pair->getKey() << ": " << pair->getValue() << endl;
+    }
+    cout << "-----End of Dictionary-----\n" << endl;
+    // End of getDictionary() test
     // End of Tree test
 
     // Create storage of objects and load data from disk

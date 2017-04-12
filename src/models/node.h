@@ -1,16 +1,16 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <list>
+#include <vector>
 
-using std::list;
+using std::vector;
 
 enum NodeType { t_and, t_or, t_leaf };
 
 template <class T>
 class Node {
 private:
-    list<Node<T>*> children;
+    vector<Node<T>*> *children = new vector<Node<T>*>();
     NodeType type;
     T *data;
 
@@ -29,7 +29,7 @@ public:
     // Add child to a node
     void addChild(Node *node)
     {
-        children.push_back(node);
+        children->push_back(node);
     }
     T *getData()
     {
@@ -40,6 +40,18 @@ public:
     NodeType getType()
     {
         return type;
+    }
+    bool hasChildren()
+    {
+        return !children->empty();
+    }
+    vector<Node<T>*> *getChildren()
+    {
+        return children;
+    }
+    Node<T> *getChild(int index)
+    {
+        return children->at(index);
     }
 };
 
