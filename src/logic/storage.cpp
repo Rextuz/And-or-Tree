@@ -28,7 +28,7 @@ void Storage::loadList()
     }
 
     std::cout << "Templates:" << std::endl;
-    for(int i = 0; i < templates.size(); ++i) {
+    for(unsigned int i = 0; i < templates.size(); ++i) {
         qDebug() << templates[i];
     }
 }
