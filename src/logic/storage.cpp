@@ -38,6 +38,7 @@ QString Storage::loadTemplate(QString name)
     name.prepend("templates/");
     name.append(".txt");
     QFile file(name);
+    file.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return NULL;
 
@@ -46,10 +47,33 @@ QString Storage::loadTemplate(QString name)
     QString content;
     while (!in.atEnd()) {
         QString line = in.readLine();
-        content.append(line);
+        content.append(line + "\n");
     }
+    content.chop(1);
 
     return content;
+}
+
+void Storage::saveTemplate(QString name, QString content)
+{
+    if(!(std::find(templates.begin(), templates.end(), name) != templates.end()))
+        templates.push_back(name);
+    name.prepend("templates/");
+    name.append(".txt");
+    QFile file(name);
+    file.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&file);
+    out.setCodec(QTextCodec::codecForName("UTF-8"));
+    out << content;
+}
+
+void Storage::deleteTemplate(QString name)
+{
+    templates.erase(std::remove(templates.begin(), templates.end(), name), templates.end());
+    QDir("templates").remove(name.append(".txt"));
 }
 
 QString Storage::getTemplate(int id)
@@ -59,7 +83,7 @@ QString Storage::getTemplate(int id)
 
 int Storage::getSize()
 {
-    return templates.size();
+    return (int)templates.size();
 }
 
 void Storage::push(ContentTemplate *contentTemplate)

@@ -15,6 +15,8 @@ public:
 
     void loadList();
     QString loadTemplate(QString name);
+    void saveTemplate(QString name, QString content);
+    void deleteTemplate(QString name);
     void push(ContentTemplate* contentTemplate);
     void save(ContentTemplate* contentTemplate);
     void printData();

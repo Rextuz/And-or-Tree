@@ -1,40 +1,47 @@
 #include "templatemenu.h"
+#include "savemenu.h"
 
-TemplateMenu::TemplateMenu(QWidget *parent, QString state) : QWidget(parent)
+TemplateMenu::TemplateMenu(QWidget *parent, QString templateName) : QWidget(parent)
 {
     parent->setWindowTitle("Template Menu");
+    setTemplateName(templateName);
 
-    menuBar = new QMenuBar();
+    // menu
+    menuBar = new QMenuBar;
     backAction = menuBar->addAction("&Back");
     connect(backAction, SIGNAL(triggered()), parent, SLOT(handleBackAction()));
     saveAction = menuBar->addAction("&Save");
     connect(saveAction, SIGNAL(triggered()), this, SLOT(handleSaveAction()));
     deleteAction = menuBar->addAction("&Delete");
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(handleDeleteAction()));
+    connect(deleteAction, SIGNAL(triggered()), parent, SLOT(handleBackAction()));
 
-    font.setPointSize(20);
+    // labels
+    font.setPointSize(16);
     templateLabel = new QLabel("Template");
     templateLabel->setFont(font);
     templateLabel->setAlignment(Qt::AlignCenter);
     treeLabel = new QLabel("Tree");
     treeLabel->setFont(font);
     treeLabel->setAlignment(Qt::AlignCenter);
-    font.setPointSize(14);
 
-    if(state.isNull()) {
-        templateText = new QTextEdit("New Template");
-        templateText->setFont(font);
-        treeText = new QTextEdit("Tree");
-        treeText->setFont(font);
+    // template text
+    templateText = new QTextEdit;
+    if(templateName.isNull()) {
+        templateText->setPlainText("New Template");
     } else {
         Storage& storage = Storage::Instance();
-        templateText = new QTextEdit(storage.loadTemplate(state));
-        templateText->setFont(font);
-        treeText = new QTextEdit("Tree");
-        treeText->setFont(font);
+        templateText->setPlainText(storage.loadTemplate(templateName));
     }
+    font.setPointSize(14);
+    templateText->setFont(font);
 
-    mainLayout = new QVBoxLayout();
+    // tree visualisation
+    treeText = new QTextEdit("Tree");
+    treeText->setFont(font);
+
+    // layout
+    mainLayout = new QVBoxLayout;
     mainLayout->setMenuBar(menuBar);
     mainLayout->addWidget(templateLabel);
     mainLayout->addWidget(templateText);
@@ -43,14 +50,25 @@ TemplateMenu::TemplateMenu(QWidget *parent, QString state) : QWidget(parent)
     setLayout(mainLayout);
 }
 
+void TemplateMenu::setTemplateName(QString templateName)
+{
+    this->templateName = templateName;
+}
+
 void TemplateMenu::handleSaveAction()
 {
-    QString text = templateText->toPlainText();
-    qDebug() << text;
+    if(templateName.isNull()) {
+        SaveMenu *saveMenu = new SaveMenu(0, this);
+        saveMenu->setWindowModality(Qt::ApplicationModal);
+        saveMenu->show();
+    } else {
+        Storage& storage = Storage::Instance();
+        storage.saveTemplate(templateName, templateText->toPlainText());
+    }
 }
 
 void TemplateMenu::handleDeleteAction()
 {
-    QString text = templateText->toPlainText();
-    qDebug() << text;
+    Storage& storage = Storage::Instance();
+    storage.deleteTemplate(templateName);
 }

@@ -17,7 +17,8 @@ class TemplateMenu : public QWidget
     Q_OBJECT
 
 public:
-    explicit TemplateMenu(QWidget *parent = 0, QString state = NULL);
+    explicit TemplateMenu(QWidget *parent = 0, QString templateName = NULL);
+    void setTemplateName(QString templateName);
 
 private slots:
     void handleSaveAction();
@@ -30,6 +31,7 @@ private:
     QTextEdit *templateText, *treeText;
     QLabel *templateLabel, *treeLabel;
     QFont font;
+    QString templateName;
 };
 
 #endif // TEMPLATEMENU_H
