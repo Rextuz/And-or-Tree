@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
     // Create storage of objects and load data from disk
     Storage& storage = Storage::Instance();
-    storage.loadList();
+    //storage.loadList();
 
     // Use Factory methods to create templates
     CTCreator* creator1 = new JokeTemplateCreator();
@@ -69,6 +69,15 @@ int main(int argc, char *argv[])
     std::cout << "content1 = " << content1->getStr() << "\n";
     Content* content2 = contentTemplate2->generateContent();
     std::cout << "content2 = " << content2->getStr() << "\n";
+
+    // test serialization
+    std::string filename = "templates/test_serializaion.json";
+    contentTemplate1->save(filename);
+    ContentTemplate* contentTemplate3 = creator2->createTemplate("123");
+    /// TODO to fix: loads as task intead of joke!
+    contentTemplate3->load(filename);
+    Content* content3 = contentTemplate3->generateContent();
+    std::cout << "content3 = " << content3->getStr() << "\n";
 
     QApplication a(argc, argv);
     MainWindow w;

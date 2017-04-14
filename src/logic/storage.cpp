@@ -86,6 +86,11 @@ int Storage::getSize()
     return (int)templates.size();
 }
 
+Storage::Storage()
+{
+    loadList();
+}
+
 void Storage::push(ContentTemplate *contentTemplate)
 {
     data.push_back(contentTemplate);

@@ -2,6 +2,7 @@
 #define ANDORTREE_H
 
 #include "node.h"
+#include <QJsonObject>
 
 // Polymorphic tree container
 template <class T>
@@ -35,7 +36,19 @@ public:
     // Tree destructor
     ~AndOrTree()
     {
+        /// TODO Max implement
+    }
 
+    void read(const QJsonObject &json)
+    {
+
+        /// TODO Max implement http://doc.qt.io/qt-5/qtcore-json-savegame-example.html
+    }
+
+    void write(QJsonObject &json) const
+    {
+        json["root"] = "some root";
+        /// TODO Max implement http://doc.qt.io/qt-5/qtcore-json-savegame-example.html
     }
 };
 

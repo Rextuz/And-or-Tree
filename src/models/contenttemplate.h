@@ -5,6 +5,9 @@
 #include "andortree.h"
 #include "lexicalpair.h"
 #include <string>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QFile>
 
 // contains a template of text and a tree
 class ContentTemplate
@@ -12,6 +15,7 @@ class ContentTemplate
 public:
     ContentTemplate(std::string title);
     ContentTemplate(std::string title, std::string text, AndOrTree<LexicalPair>* tree);
+    ~ContentTemplate();
 
     virtual Content* generateContent() = 0;
 
@@ -19,6 +23,12 @@ public:
     std::string getText() const;
     AndOrTree<LexicalPair> *getTree() const;
     int getUid() const;
+
+    void read(const QJsonObject &json);
+    void write(QJsonObject &json) const;
+
+    bool load(std::string filename);
+    bool save(std::string filename) const;
 
 private:
     static int newUID;
