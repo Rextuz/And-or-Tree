@@ -72,10 +72,8 @@ int main(int argc, char *argv[])
 
     // test serialization
     std::string filename = "templates/test_serializaion.json";
-    contentTemplate1->save(filename);
-    ContentTemplate* contentTemplate3 = creator2->createTemplate("123");
-    /// TODO to fix: loads as task intead of joke!
-    contentTemplate3->load(filename);
+    storage.saveTemplate(contentTemplate1, filename);
+    ContentTemplate* contentTemplate3 = storage.loadTemplate(filename);
     Content* content3 = contentTemplate3->generateContent();
     std::cout << "content3 = " << content3->getStr() << "\n";
 

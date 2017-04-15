@@ -70,6 +70,55 @@ void Storage::saveTemplate(QString name, QString content)
     out << content;
 }
 
+// return NULL if couldn't load
+ContentTemplate* Storage::loadTemplate(std::string filename)
+{
+    QFile loadFile(QString::fromUtf8(filename.c_str()));
+
+    if (!loadFile.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open save file.");
+        return NULL;
+    }
+
+    QByteArray saveData = loadFile.readAll();
+
+    QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+    QJsonObject json = loadDoc.object();
+
+    std::string type = json["type"].toString().toUtf8().constData();
+    ContentTemplate* contentTemplate;
+    if(type == "joke"){
+        contentTemplate = new JokeTemplate("???");
+    }
+    else if(type == "task"){
+        contentTemplate = new TaskTemplate("???");
+    }
+    else{
+        contentTemplate = NULL;
+    }
+
+    contentTemplate->read(json);
+
+    return contentTemplate;
+}
+
+bool Storage::saveTemplate(ContentTemplate *contentTemplate, std::string filename) const
+{
+    QFile saveFile(QString::fromUtf8(filename.c_str()));
+
+    if (!saveFile.open(QIODevice::WriteOnly)) {
+        qWarning("Couldn't open save file.");
+        return false;
+    }
+
+    QJsonObject gameObject;
+    contentTemplate->write(gameObject);
+    QJsonDocument saveDoc(gameObject);
+    saveFile.write(saveDoc.toJson());
+
+    return true;
+}
+
 void Storage::deleteTemplate(QString name)
 {
     templates.erase(std::remove(templates.begin(), templates.end(), name), templates.end());

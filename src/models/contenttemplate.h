@@ -15,7 +15,7 @@ class ContentTemplate
 public:
     ContentTemplate(std::string title);
     ContentTemplate(std::string title, std::string text, AndOrTree<LexicalPair>* tree);
-    ~ContentTemplate();
+    virtual ~ContentTemplate();
 
     virtual Content* generateContent() = 0;
 
@@ -24,15 +24,13 @@ public:
     AndOrTree<LexicalPair> *getTree() const;
     int getUid() const;
 
-    void read(const QJsonObject &json);
-    void write(QJsonObject &json) const;
-
-    bool load(std::string filename);
-    bool save(std::string filename) const;
+    virtual void read(const QJsonObject &json) = 0;
+    virtual void write(QJsonObject &json) const = 0;
 
 private:
     static int newUID;
 
+protected:
     const int uid;
     std::string title;
     std::string text;

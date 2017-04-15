@@ -11,6 +11,9 @@ public:
     TaskTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree);
 
     Content* generateContent();
+
+    void read(const QJsonObject &json);
+    void write(QJsonObject &json) const;
 };
 
 #endif // TASKTEMPLATE_H
