@@ -29,12 +29,11 @@ public:
     bool saveTemplate(ContentTemplate* contentTemplate, std::string filename) const;
 
 private:
-    Storage();  // конструктор недоступен
-    ~Storage() {} // и деструктор
+    Storage();
+    ~Storage() {}
 
-    // необходимо запретить копирование
-    Storage(Storage const&); // реализация не нужна
-    Storage& operator= (Storage const&);  // и тут
+    Storage(Storage const&);
+    Storage& operator= (Storage const&);
 
     std::vector<QString> templates;
     std::vector<ContentTemplate*> data;

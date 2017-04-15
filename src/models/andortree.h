@@ -10,6 +10,8 @@ class AndOrTree
 {
 private:
     Node<T> *root;
+    AndOrTree(AndOrTree const&);
+    AndOrTree& operator= (AndOrTree const&);
 
 public:
     AndOrTree(NodeType type)
