@@ -1,10 +1,10 @@
 #include "templatemenu.h"
 #include "savemenu.h"
 
-TemplateMenu::TemplateMenu(QWidget *parent, QString templateName) : QWidget(parent)
+TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : QWidget(parent)
 {
-    parent->setWindowTitle("Template Menu");
-    setTemplateName(templateName);
+    this->contentTemplate = contentTemplate;
+    parent->setWindowTitle(QString::fromUtf8(contentTemplate->getTitle().c_str()));
 
     // menu
     menuBar = new QMenuBar;
@@ -27,12 +27,8 @@ TemplateMenu::TemplateMenu(QWidget *parent, QString templateName) : QWidget(pare
 
     // template text
     templateText = new QTextEdit;
-    if(templateName.isNull()) {
-        templateText->setPlainText("New Template");
-    } else {
-        Storage& storage = Storage::Instance();
-        templateText->setPlainText(storage.loadTemplate(templateName));
-    }
+    templateText->setPlainText(QString::fromUtf8(contentTemplate->getText().c_str()));
+
     font.setPointSize(14);
     templateText->setFont(font);
 
@@ -50,25 +46,21 @@ TemplateMenu::TemplateMenu(QWidget *parent, QString templateName) : QWidget(pare
     setLayout(mainLayout);
 }
 
-void TemplateMenu::setTemplateName(QString templateName)
-{
-    this->templateName = templateName;
-}
-
 void TemplateMenu::handleSaveAction()
 {
-    if(templateName.isNull()) {
-        SaveMenu *saveMenu = new SaveMenu(0, this);
-        saveMenu->setWindowModality(Qt::ApplicationModal);
-        saveMenu->show();
-    } else {
-        Storage& storage = Storage::Instance();
-        storage.saveTemplate(templateName, templateText->toPlainText());
+    contentTemplate->setText(templateText->toPlainText().toUtf8().constData());
+    Storage& storage = Storage::Instance();
+    bool status = storage.saveTemplate(contentTemplate);
+    if(!status){
+        ///TODO draw error message box
     }
 }
 
 void TemplateMenu::handleDeleteAction()
 {
     Storage& storage = Storage::Instance();
-    storage.deleteTemplate(templateName);
+    bool status = storage.deleteTemplate(QString::fromUtf8(contentTemplate->getTitle().c_str()));
+    if(!status){
+        ///TODO draw error message box
+    }
 }

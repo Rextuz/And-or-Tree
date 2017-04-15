@@ -47,22 +47,13 @@ int main(int argc, char *argv[])
     }
     cout << "-----End of Dictionary-----\n" << endl;
     // End of getDictionary() test
-    // End of Tree test
-
-    // Create storage of objects and load data from disk
-    Storage& storage = Storage::Instance();
-    //storage.loadList();
+    // End of Tree test  
 
     // Use Factory methods to create templates
     CTCreator* creator1 = new JokeTemplateCreator();
     CTCreator* creator2 = new TaskTemplateCreator();
-    ContentTemplate* contentTemplate1 = creator1->createTemplate("I'm a joke");
-    ContentTemplate* contentTemplate2 = creator2->createTemplate("I'm a task");
-    storage.save(contentTemplate1);
-    storage.save(contentTemplate2);
-
-    // Print storage
-    storage.printData();
+    ContentTemplate* contentTemplate1 = creator1->createTemplate("I'm a joke (test)");
+    ContentTemplate* contentTemplate2 = creator2->createTemplate("I'm a task (test)");
 
     // Generate somethings
     Content* content1 = contentTemplate1->generateContent();
@@ -71,11 +62,15 @@ int main(int argc, char *argv[])
     std::cout << "content2 = " << content2->getStr() << "\n";
 
     // test serialization
-    std::string filename = "templates/test_serializaion.json";
-    storage.saveTemplate(contentTemplate1, filename);
-    ContentTemplate* contentTemplate3 = storage.loadTemplate(filename);
-    Content* content3 = contentTemplate3->generateContent();
-    std::cout << "content3 = " << content3->getStr() << "\n";
+    /*
+    Storage& storage = Storage::Instance();
+    storage.saveTemplate(contentTemplate1);
+    storage.saveTemplate(contentTemplate2);
+    ContentTemplate* contentTemplate3 = storage.loadTemplate(QString::fromUtf8(contentTemplate1->getTitle().c_str()));
+    if(contentTemplate3 != NULL){
+        Content* content3 = contentTemplate3->generateContent();
+        std::cout << "content3 = " << content3->getStr() << "\n";
+    }*/
 
     QApplication a(argc, argv);
     MainWindow w;

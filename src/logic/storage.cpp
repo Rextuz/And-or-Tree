@@ -2,27 +2,24 @@
 
 Storage &Storage::Instance()
 {
-    // согласно стандарту, этот код ленивый и потокобезопасный
     static Storage s;
     return s;
 }
 
-void Storage::loadList()
+void Storage::reloadList()
 {
     QDir dir;
     if(!QDir("templates").exists()) {
         dir.mkdir("templates");
-        QFile::copy(":/resource/templates/joke.txt", "templates/joke.txt");
-        QFile::copy(":/resource/templates/Denis.txt", "templates/Denis.txt");
-        QFile::copy(":/resource/templates/Max.txt", "templates/Max.txt");
-        QFile::copy(":/resource/templates/test joke.txt", "templates/test joke.txt");
-        QFile::copy(":/resource/templates/April Fools Day.txt", "templates/April Fools Day.txt");
+        QFile::copy(":/resource/templates/Apples.json", "templates/Apples.json");
+        QFile::copy(":/resource/templates/Chest.json", "templates/Chest.json");
     }
 
     dir.cd("templates");
 
-    QFileInfoList list = dir.entryInfoList(QStringList() << "*.txt", QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+    QFileInfoList list = dir.entryInfoList(QStringList() << "*.json", QDir::Files | QDir::NoSymLinks | QDir::NoDotAndDotDot);
 
+    templates.clear();
     for(int i = 0; i < list.size(); ++i) {
         templates.push_back(list.at(i).fileName().split(".").first());
     }
@@ -33,48 +30,14 @@ void Storage::loadList()
     }
 }
 
-QString Storage::loadTemplate(QString name)
-{
-    name.prepend("templates/");
-    name.append(".txt");
-    QFile file(name);
-    file.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return NULL;
-
-    QTextStream in(&file);
-    in.setCodec(QTextCodec::codecForName("UTF-8"));
-    QString content;
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        content.append(line + "\n");
-    }
-    content.chop(1);
-
-    return content;
-}
-
-void Storage::saveTemplate(QString name, QString content)
-{
-    if(!(std::find(templates.begin(), templates.end(), name) != templates.end()))
-        templates.push_back(name);
-    name.prepend("templates/");
-    name.append(".txt");
-    QFile file(name);
-    file.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-        return;
-
-    QTextStream out(&file);
-    out.setCodec(QTextCodec::codecForName("UTF-8"));
-    out << content;
-}
-
 // return NULL if couldn't load
-ContentTemplate* Storage::loadTemplate(std::string filename)
+ContentTemplate* Storage::loadTemplate(QString name)
 {
-    QFile loadFile(QString::fromUtf8(filename.c_str()));
+    name.prepend("templates/");
+    name.append(".json");
+    QFile loadFile(name);
 
+    loadFile.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
     if (!loadFile.open(QIODevice::ReadOnly)) {
         qWarning("Couldn't open save file.");
         return NULL;
@@ -102,10 +65,14 @@ ContentTemplate* Storage::loadTemplate(std::string filename)
     return contentTemplate;
 }
 
-bool Storage::saveTemplate(ContentTemplate *contentTemplate, std::string filename) const
+bool Storage::saveTemplate(ContentTemplate *contentTemplate) const
 {
-    QFile saveFile(QString::fromUtf8(filename.c_str()));
+    QString name = QString::fromUtf8(contentTemplate->getTitle().c_str());
+    name.prepend("templates/");
+    name.append(".json");
+    QFile saveFile(name);
 
+    saveFile.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
     if (!saveFile.open(QIODevice::WriteOnly)) {
         qWarning("Couldn't open save file.");
         return false;
@@ -119,13 +86,14 @@ bool Storage::saveTemplate(ContentTemplate *contentTemplate, std::string filenam
     return true;
 }
 
-void Storage::deleteTemplate(QString name)
+bool Storage::deleteTemplate(QString name)
 {
     templates.erase(std::remove(templates.begin(), templates.end(), name), templates.end());
-    QDir("templates").remove(name.append(".txt"));
+    QDir("templates").remove(name.append(".json"));
+    return true;
 }
 
-QString Storage::getTemplate(int id)
+QString Storage::getTemplateName(int id)
 {
     return templates[id];
 }
@@ -137,22 +105,5 @@ int Storage::getSize()
 
 Storage::Storage()
 {
-    loadList();
-}
-
-void Storage::push(ContentTemplate *contentTemplate)
-{
-    data.push_back(contentTemplate);
-}
-
-void Storage::save(ContentTemplate *contentTemplate)
-{
-    std::cout << "Template '" << contentTemplate->getTitle()<<"' saved to disk" << "\n";
-}
-
-void Storage::printData()
-{
-    for(unsigned int i=0; i<data.size(); ++i) {
-        std::cout << (i+1) << " element (uid="<<data[i]->getUid()<<"): " << data[i]->getTitle() << " - " << data[i]->getText() << "\n";
-    }
+    reloadList();
 }

@@ -41,3 +41,8 @@ int ContentTemplate::getUid() const
 {
     return uid;
 }
+
+void ContentTemplate::setText(const std::string &value)
+{
+    text = value;
+}

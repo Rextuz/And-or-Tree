@@ -1,9 +1,6 @@
 <RCC>
     <qresource prefix="/resource">
-        <file>templates/joke.txt</file>
-        <file>templates/April Fools Day.txt</file>
-        <file>templates/Denis.txt</file>
-        <file>templates/Max.txt</file>
-        <file>templates/test joke.txt</file>
+        <file>templates/Apples.json</file>
+        <file>templates/Chest.json</file>
     </qresource>
 </RCC>

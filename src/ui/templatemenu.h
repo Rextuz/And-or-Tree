@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QDebug>
 #include "src/logic/storage.h"
+#include "src/models/contenttemplate.h"
 
 // displays current ContentTemplate (template of text + tree)
 class TemplateMenu : public QWidget
@@ -17,7 +18,7 @@ class TemplateMenu : public QWidget
     Q_OBJECT
 
 public:
-    explicit TemplateMenu(QWidget *parent = 0, QString templateName = NULL);
+    explicit TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate);
     void setTemplateName(QString templateName);
 
 private slots:
@@ -31,7 +32,8 @@ private:
     QTextEdit *templateText, *treeText;
     QLabel *templateLabel, *treeLabel;
     QFont font;
-    QString templateName;
+
+    ContentTemplate* contentTemplate;
 };
 
 #endif // TEMPLATEMENU_H

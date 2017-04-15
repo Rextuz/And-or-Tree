@@ -10,10 +10,16 @@ public:
     TaskTemplate(std::string title);
     TaskTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree);
 
+    std::string getAnswer() const;
+    void setAnswer(const std::string &value);
+
     Content* generateContent();
 
     void read(const QJsonObject &json);
     void write(QJsonObject &json) const;
+
+private:
+    std::string answer;
 };
 
 #endif // TASKTEMPLATE_H

@@ -19,6 +19,7 @@ public:
 
     std::string getTitle() const;
     std::string getText() const;
+    void setText(const std::string &value);
     AndOrTree<LexicalPair> *getTree() const;
     int getUid() const;
 

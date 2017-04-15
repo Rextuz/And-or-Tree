@@ -16,6 +16,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 
     // buttons
     Storage& storage = Storage::Instance();
+    storage.reloadList();
     int count = storage.getSize();
     int rows = count / 4 + 1;
     for(int i = 0; i < rows; i++)
@@ -24,7 +25,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
         int j;
         for(j = 0; j < 4 && count > 0; j++, count--)
         {
-            QPushButton *button = new QPushButton(storage.getTemplate(count - 1));
+            QPushButton *button = new QPushButton(storage.getTemplateName(count - 1));
             connect(button, SIGNAL (released()), parent, SLOT (handleExsistTemplateButton()));
             button->setFont(font);
             button->setFixedSize(240, 100);

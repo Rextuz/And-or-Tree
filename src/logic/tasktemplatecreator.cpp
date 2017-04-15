@@ -10,8 +10,6 @@ TaskTemplateCreator::TaskTemplateCreator()
 ContentTemplate *TaskTemplateCreator::createTemplate(std::string title)
 {
     TaskTemplate* tt = new TaskTemplate(title);
-    Storage& storage = Storage::Instance();
-    storage.push(tt);
     return tt;
 }
 
