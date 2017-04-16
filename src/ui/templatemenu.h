@@ -24,14 +24,17 @@ public:
 private slots:
     void handleSaveAction();
     void handleDeleteAction();
+    void handleGenerateAction();
 
 private:
     QVBoxLayout *mainLayout;
+    QHBoxLayout *hLayout;
     QMenuBar *menuBar;
     QAction *backAction, *saveAction, *deleteAction;
     QTextEdit *templateText, *treeText;
     QLabel *templateLabel, *treeLabel;
-    QFont font;
+    QPushButton* genButton;
+    QFont font; 
 
     ContentTemplate* contentTemplate;
 };

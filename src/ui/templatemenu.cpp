@@ -1,5 +1,4 @@
 #include "templatemenu.h"
-#include "savemenu.h"
 
 TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : QWidget(parent)
 {
@@ -28,9 +27,14 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     // template text
     templateText = new QTextEdit;
     templateText->setPlainText(QString::fromUtf8(contentTemplate->getText().c_str()));
-
     font.setPointSize(14);
     templateText->setFont(font);
+
+    // button
+    genButton = new QPushButton;
+    genButton->setIcon(QIcon(":/resource/images/gear.jpg"));
+    genButton->setIconSize(QSize(85,85));
+    connect(genButton, SIGNAL(clicked(bool)), this, SLOT(handleGenerateAction()));
 
     // tree visualisation
     treeText = new QTextEdit("Tree");
@@ -40,7 +44,10 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     mainLayout = new QVBoxLayout;
     mainLayout->setMenuBar(menuBar);
     mainLayout->addWidget(templateLabel);
-    mainLayout->addWidget(templateText);
+    hLayout = new QHBoxLayout;
+    hLayout->addWidget(templateText);
+    hLayout->addWidget(genButton, 0, Qt::AlignCenter);
+    mainLayout->addLayout(hLayout);
     mainLayout->addWidget(treeLabel);
     mainLayout->addWidget(treeText);
     setLayout(mainLayout);
@@ -63,4 +70,11 @@ void TemplateMenu::handleDeleteAction()
     if(!status){
         ///TODO draw error message box
     }
+}
+
+void TemplateMenu::handleGenerateAction()
+{
+    Content* content = contentTemplate->generateContent();
+    qDebug()<<QString::fromUtf8(content->getStr().c_str());
+    /// TODO show window with content
 }
