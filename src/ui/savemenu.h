@@ -21,6 +21,7 @@ private:
     QLabel *label, *label2;
     QPushButton *button;
     QFont font;
+    QDesktopWidget dw;
     QComboBox* cb;
 };
 

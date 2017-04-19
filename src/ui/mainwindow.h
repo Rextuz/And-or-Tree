@@ -30,6 +30,8 @@ private:
 
     JokeTemplateCreator jokeTemplateCreator;
     TaskTemplateCreator taskTemplateCreator;
+
+    QDesktopWidget dw;
 };
 
 #endif // MAINWINDOW_H

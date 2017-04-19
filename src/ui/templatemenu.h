@@ -9,6 +9,7 @@
 #include <QTextEdit>
 #include <QLabel>
 #include <QDebug>
+#include <QDesktopWidget>
 #include "src/logic/storage.h"
 #include "src/models/contenttemplate.h"
 
@@ -34,7 +35,8 @@ private:
     QTextEdit *templateText, *treeText;
     QLabel *templateLabel, *treeLabel;
     QPushButton* genButton;
-    QFont font; 
+    QFont font;
+    QDesktopWidget dw;
 
     ContentTemplate* contentTemplate;
 };

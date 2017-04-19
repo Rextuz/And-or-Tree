@@ -15,8 +15,11 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(handleDeleteAction()));
     connect(deleteAction, SIGNAL(triggered()), parent, SLOT(handleBackAction()));
 
+    // font
+    font.setFamily("Segoe UI Light");
+    font.setPointSize(dw.height()*0.015);
+
     // labels
-    font.setPointSize(16);
     templateLabel = new QLabel("Template");
     templateLabel->setFont(font);
     templateLabel->setAlignment(Qt::AlignCenter);
@@ -27,7 +30,7 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     // template text
     templateText = new QTextEdit;
     templateText->setPlainText(QString::fromUtf8(contentTemplate->getText().c_str()));
-    font.setPointSize(14);
+    font.setPointSize(dw.height()*0.015);
     templateText->setFont(font);
 
     // button

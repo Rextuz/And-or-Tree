@@ -4,13 +4,16 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 {
     parent->setWindowTitle("Main Menu");
     mainLayout = new QVBoxLayout;
-    font.setPointSize(16);
+
+    // font
+    font.setPointSize(dw.height()*0.015);
+    font.setFamily("Segoe UI Light");
 
     // label
     label = new QLabel("Templates");
     label->setFont(font);
-    label->setMaximumHeight(40);
-    label->setMinimumHeight(40);
+    label->setMaximumHeight(dw.height()*0.04);
+    label->setMinimumHeight(dw.height()*0.04);
     label->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(label);
 
@@ -28,7 +31,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
             QPushButton *button = new QPushButton(storage.getTemplateName(count - 1));
             connect(button, SIGNAL (released()), parent, SLOT (handleExsistTemplateButton()));
             button->setFont(font);
-            button->setFixedSize(240, 100);
+            button->setFixedSize(dw.width()*0.15, dw.height()*0.1);
             hLayout->addWidget(button);
         }
         if((count == 0) && (j < 4))
@@ -36,7 +39,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
             QPushButton *newButton = new QPushButton("+");
             connect(newButton, SIGNAL (released()), parent, SLOT (handleNewTemplateButton()));
             newButton->setFont(font);
-            newButton->setFixedSize(240, 100);
+            newButton->setFixedSize(dw.width()*0.15, dw.height()*0.1);
             hLayout->addWidget(newButton);
         }
         mainLayout->addLayout(hLayout);
@@ -44,7 +47,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 
     // scroll area via inner widget
     scrollArea = new QScrollArea(this);
-    scrollArea->setFixedSize(1000, 800);
+    scrollArea->setFixedSize(dw.width()*0.8, dw.height()*0.8);
     scrollArea->setWidgetResizable(true);
     innerWidget = new QWidget(scrollArea);
     innerWidget->setLayout(mainLayout);

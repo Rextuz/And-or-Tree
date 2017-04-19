@@ -1,10 +1,10 @@
 #include "mainwindow.h"
-#include "src/ui/savemenu.h"
+#include "savemenu.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setWindowIcon(QIcon(":/resource/images/tree.jpg"));
-    setFixedSize(1000, 800);
+    setFixedSize(dw.width()*0.8, dw.height()*0.8);
     mainMenu = new MainMenu(this);
     setCentralWidget(mainMenu);
 }

@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QScrollArea>
+#include <QDesktopWidget>
 #include "src/logic/storage.h"
 
 class MainMenu : public QWidget
@@ -22,6 +23,7 @@ private:
     QWidget *innerWidget;
     QLabel *label;
     QFont font;
+    QDesktopWidget dw;
 };
 
 #endif // MAINMENU_H
