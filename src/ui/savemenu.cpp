@@ -30,7 +30,7 @@ SaveMenu::SaveMenu(QWidget *parent, MainWindow *mainWindow) : QWidget(parent)
     cb->setFixedSize(dw.width()*0.06, dw.height()*0.03);
 
     // button
-    button = new QPushButton("save");
+    button = new QPushButton("create");
     connect(button, SIGNAL (released()), this, SLOT (handleButton()));
     button->setFont(font);
     button->setFixedSize(dw.width()*0.06, dw.height()*0.04);

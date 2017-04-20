@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QDebug>
 #include <QDesktopWidget>
+#include <QMessageBox>
 #include "src/logic/storage.h"
 #include "src/models/contenttemplate.h"
 
@@ -37,6 +38,7 @@ private:
     QPushButton* genButton;
     QFont font;
     QDesktopWidget dw;
+    QMessageBox messageBox;
 
     ContentTemplate* contentTemplate;
 };

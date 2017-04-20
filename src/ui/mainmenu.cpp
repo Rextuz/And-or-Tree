@@ -29,7 +29,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
         for(j = 0; j < 4 && count > 0; j++, count--)
         {
             QPushButton *button = new QPushButton(storage.getTemplateName(count - 1));
-            connect(button, SIGNAL (released()), parent, SLOT (handleExsistTemplateButton()));
+            connect(button, SIGNAL (released()), parent, SLOT (handleExistTemplateButton()));
             button->setFont(font);
             button->setFixedSize(dw.width()*0.15, dw.height()*0.1);
             hLayout->addWidget(button);

@@ -20,7 +20,7 @@ public:
     void handleNewTemplateButton(QString name, Type type);
 
 private slots:
-    void handleExsistTemplateButton();
+    void handleExistTemplateButton();
     void handleNewTemplateButton();
     void handleBackAction();
 
@@ -31,7 +31,9 @@ private:
     JokeTemplateCreator jokeTemplateCreator;
     TaskTemplateCreator taskTemplateCreator;
 
+    QFont font;
     QDesktopWidget dw;
+    QMessageBox messageBox;
 };
 
 #endif // MAINWINDOW_H

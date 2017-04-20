@@ -30,7 +30,6 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     // template text
     templateText = new QTextEdit;
     templateText->setPlainText(QString::fromUtf8(contentTemplate->getText().c_str()));
-    font.setPointSize(dw.height()*0.015);
     templateText->setFont(font);
 
     // button
@@ -54,6 +53,13 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     mainLayout->addWidget(treeLabel);
     mainLayout->addWidget(treeText);
     setLayout(mainLayout);
+
+    // for message box
+    font.setPointSize(dw.height()*0.013);
+    messageBox.setWindowIcon(QIcon(":/resource/images/tree.jpg"));
+    messageBox.setWindowTitle("Error");
+    messageBox.setIcon(QMessageBox::Critical);
+    messageBox.setFont(font);
 }
 
 void TemplateMenu::handleSaveAction()
@@ -62,7 +68,8 @@ void TemplateMenu::handleSaveAction()
     Storage& storage = Storage::Instance();
     bool status = storage.saveTemplate(contentTemplate);
     if(!status){
-        ///TODO draw error message box
+        messageBox.setText("Template not saved!");
+        messageBox.exec();
     }
 }
 
@@ -71,7 +78,8 @@ void TemplateMenu::handleDeleteAction()
     Storage& storage = Storage::Instance();
     bool status = storage.deleteTemplate(QString::fromUtf8(contentTemplate->getTitle().c_str()));
     if(!status){
-        ///TODO draw error message box
+        messageBox.setText("Template not deleted!");
+        messageBox.exec();
     }
 }
 

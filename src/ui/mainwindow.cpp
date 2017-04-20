@@ -5,6 +5,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setWindowIcon(QIcon(":/resource/images/tree.jpg"));
     setFixedSize(dw.width()*0.8, dw.height()*0.8);
+
+    // for message box
+    font.setFamily("Segoe UI Light");
+    font.setPointSize(dw.height()*0.013);
+    messageBox.setWindowIcon(QIcon(":/resource/images/tree.jpg"));
+    messageBox.setWindowTitle("Error");
+    messageBox.setIcon(QMessageBox::Critical);
+    messageBox.setFont(font);
+
     mainMenu = new MainMenu(this);
     setCentralWidget(mainMenu);
 }
@@ -14,7 +23,7 @@ MainWindow::~MainWindow()
 
 }
 
-void MainWindow::handleExsistTemplateButton()
+void MainWindow::handleExistTemplateButton()
 {
     QPushButton* button = qobject_cast<QPushButton*>(sender());
     QString title = button->text();
@@ -27,29 +36,39 @@ void MainWindow::handleExsistTemplateButton()
         setCentralWidget(templateMenu);
     }
     else{
-        ///TODO draw error message box
+        messageBox.setText("Template doesn`t exists!");
+        messageBox.exec();
     }
 }
 
 void MainWindow::handleNewTemplateButton(QString name, MainWindow::Type type)
 {
     if(name.length() < 1){
-        ///TODO draw error message box
+        messageBox.setText("Invalid template name!");
+        messageBox.exec();
+        handleNewTemplateButton();
     }
     else{
-        /// TODO if template with such name exists -> draw error message box
-        ContentTemplate* newTemplate;
-        switch(type){
-            case Type::Joke:
-                newTemplate = jokeTemplateCreator.createTemplate(name.toUtf8().constData());
-                break;
-            case Type::Task:
-                newTemplate = taskTemplateCreator.createTemplate(name.toUtf8().constData());
-                break;
+        Storage& storage = Storage::Instance();
+        if(storage.loadTemplate(name) != NULL){
+            messageBox.setText("Template with this name already exists!");
+            messageBox.exec();
+            handleNewTemplateButton();
         }
+        else{
+            ContentTemplate* newTemplate;
+            switch(type){
+                case Type::Joke:
+                    newTemplate = jokeTemplateCreator.createTemplate(name.toUtf8().constData());
+                    break;
+                case Type::Task:
+                    newTemplate = taskTemplateCreator.createTemplate(name.toUtf8().constData());
+                    break;
+            }
 
-        templateMenu = new TemplateMenu(this, newTemplate);
-        setCentralWidget(templateMenu);
+            templateMenu = new TemplateMenu(this, newTemplate);
+            setCentralWidget(templateMenu);
+        }
     }
 }
 
