@@ -56,6 +56,11 @@ int main(int argc, char *argv[])
     cout << "\n-----End of Serialized tree-----" << endl;
     // End of serializer test
 
+    // Deserializer test
+    // Node<LexicalPair> *node = nullptr;
+    // deserialize(std::cin, node);
+    // End of deserializer test
+
     // Use Factory methods to create templates
     CTCreator* creator1 = new JokeTemplateCreator();
     CTCreator* creator2 = new TaskTemplateCreator();

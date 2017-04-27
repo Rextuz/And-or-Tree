@@ -3,6 +3,7 @@
 
 #include <iostream>
 using std::ostream;
+using std::istream;
 
 #include "node.h"
 #include "lexicalpair.h"
@@ -12,14 +13,6 @@ using std::ostream;
 void serialize(ostream &out, Node<LexicalPair> *node, int level)
 {
     LexicalPair *data = node->getData();
-    // string type;
-
-    /*if (node->getType() == t_and)
-        type = "and";
-    else if (node->getType() == t_or)
-        type = "or";
-    else
-        type = "leaf";*/
 
     if (level == 0)
         out << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>" << endl;
@@ -41,6 +34,15 @@ void serialize(ostream &out, Node<LexicalPair> *node, int level)
         TAB out << "\t</children>" << endl;
     }
     TAB out << "</node>" << endl;
+}
+
+void deserialize(istream &in, Node<LexicalPair> *node)
+{
+    // TODO
+    string s;
+    std::getline(in, s);
+    node = new Node<LexicalPair>(t_or);
+    delete node;
 }
 
 #endif // SERIALIZER_H
