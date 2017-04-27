@@ -7,6 +7,7 @@ using std::cout;
 using std::endl;
 
 #include "../models/andortree.h"
+#include "../models/serializer.h"
 #include "src/models/lexicalpair.h"
 #include "src/models/joketemplate.h"
 #include "src/logic/storage.h"
@@ -47,7 +48,13 @@ int main(int argc, char *argv[])
     }
     cout << "-----End of Dictionary-----\n" << endl;
     // End of getDictionary() test
-    // End of Tree test  
+    // End of Tree test
+
+    // Serializer test
+    cout << "\n-----Serialized tree-----" << endl;
+    serialize(std::cout, tree->getRoot(), 0);
+    cout << "\n-----End of Serialized tree-----" << endl;
+    // End of serializer test
 
     // Use Factory methods to create templates
     CTCreator* creator1 = new JokeTemplateCreator();

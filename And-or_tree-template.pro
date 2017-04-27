@@ -41,7 +41,8 @@ HEADERS  += src/ui/mainwindow.h \
     src/logic/joketemplatecreator.h \
     src/logic/tasktemplatecreator.h \
     src/models/lexicalpair.h \
-    src/ui/savemenu.h
+    src/ui/savemenu.h \
+    src/models/serializer.h
 
 RESOURCES += \
     res/images.qrc \
