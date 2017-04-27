@@ -37,7 +37,8 @@ private:
     QLabel *templateLabel, *treeLabel, *answerLabel;
     QPushButton* genButton;
     QFont font;
-    QDesktopWidget dw;
+    QDesktopWidget desktopWidget;
+    QRect mainScreenSize;
     QMessageBox messageBox;
 
     ContentTemplate* contentTemplate;

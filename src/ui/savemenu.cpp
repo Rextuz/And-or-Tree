@@ -4,12 +4,13 @@ SaveMenu::SaveMenu(QWidget *parent, MainWindow *mainWindow) : QWidget(parent)
 {
     setWindowIcon(QIcon(":/resource/images/tree.jpg"));
     setWindowTitle("New Template");
-    setFixedSize(dw.width()*0.25, dw.height()*0.25);
+    mainScreenSize = desktopWidget.screenGeometry(desktopWidget.primaryScreen());
+    setFixedSize(mainScreenSize.width()*0.25, mainScreenSize.height()*0.25);
     this->mainWindow = mainWindow;
 
     // font
     font.setFamily("Segoe UI Light");
-    font.setPointSize(dw.height()*0.013);
+    font.setPointSize(mainScreenSize.height()*0.013);
 
     // labels
     label = new QLabel("Enter the name of the template:");
@@ -20,20 +21,20 @@ SaveMenu::SaveMenu(QWidget *parent, MainWindow *mainWindow) : QWidget(parent)
     // text area
     templateName = new QTextEdit;
     templateName->setFont(font);
-    templateName->setFixedSize(dw.width()*0.2, dw.height()*0.035);
+    templateName->setFixedSize(mainScreenSize.width()*0.2, mainScreenSize.height()*0.035);
 
     // combo box
     cb = new QComboBox;
     cb->addItem("Joke");
     cb->addItem("Task");
     cb->setFont(font);
-    cb->setFixedSize(dw.width()*0.06, dw.height()*0.03);
+    cb->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.03);
 
     // button
     button = new QPushButton("create");
     connect(button, SIGNAL (released()), this, SLOT (handleButton()));
     button->setFont(font);
-    button->setFixedSize(dw.width()*0.06, dw.height()*0.04);
+    button->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.04);
 
     // layout
     layout = new QVBoxLayout;

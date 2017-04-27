@@ -32,7 +32,8 @@ private:
     TaskTemplateCreator taskTemplateCreator;
 
     QFont font;
-    QDesktopWidget dw;
+    QDesktopWidget desktopWidget;
+    QRect mainScreenSize;
     QMessageBox messageBox;
 };
 

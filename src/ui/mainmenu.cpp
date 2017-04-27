@@ -3,17 +3,18 @@
 MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 {
     parent->setWindowTitle("Main Menu");
+    mainScreenSize = desktopWidget.screenGeometry(desktopWidget.primaryScreen());
     mainLayout = new QVBoxLayout;
 
     // font
-    font.setPointSize(dw.height()*0.015);
+    font.setPointSize(mainScreenSize.height()*0.015);
     font.setFamily("Segoe UI Light");
 
     // label
     label = new QLabel("Templates");
     label->setFont(font);
-    label->setMaximumHeight(dw.height()*0.04);
-    label->setMinimumHeight(dw.height()*0.04);
+    label->setMaximumHeight(mainScreenSize.height()*0.04);
+    label->setMinimumHeight(mainScreenSize.height()*0.04);
     label->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(label);
 
@@ -31,7 +32,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
             QPushButton *button = new QPushButton(storage.getTemplateName(count - 1));
             connect(button, SIGNAL (released()), parent, SLOT (handleExistTemplateButton()));
             button->setFont(font);
-            button->setFixedSize(dw.width()*0.15, dw.height()*0.1);
+            button->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.1);
             hLayout->addWidget(button);
         }
         if((count == 0) && (j < 4))
@@ -39,7 +40,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
             QPushButton *newButton = new QPushButton("+");
             connect(newButton, SIGNAL (released()), parent, SLOT (handleNewTemplateButton()));
             newButton->setFont(font);
-            newButton->setFixedSize(dw.width()*0.15, dw.height()*0.1);
+            newButton->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.1);
             hLayout->addWidget(newButton);
         }
         mainLayout->addLayout(hLayout);
@@ -47,7 +48,7 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 
     // scroll area via inner widget
     scrollArea = new QScrollArea(this);
-    scrollArea->setFixedSize(dw.width()*0.8, dw.height()*0.8);
+    scrollArea->setFixedSize(mainScreenSize.width()*0.8, mainScreenSize.height()*0.8);
     scrollArea->setWidgetResizable(true);
     innerWidget = new QWidget(scrollArea);
     innerWidget->setLayout(mainLayout);

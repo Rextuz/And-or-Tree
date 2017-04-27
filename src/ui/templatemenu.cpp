@@ -2,6 +2,7 @@
 
 TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : QWidget(parent)
 {
+    mainScreenSize = desktopWidget.screenGeometry(desktopWidget.primaryScreen());
     this->contentTemplate = contentTemplate;
     parent->setWindowTitle(QString::fromUtf8(contentTemplate->getTitle().c_str()));
 
@@ -17,7 +18,7 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
 
     // font
     font.setFamily("Segoe UI Light");
-    font.setPointSize(dw.height()*0.015);
+    font.setPointSize(mainScreenSize.height()*0.015);
 
     // labels
     templateLabel = new QLabel("Template");
@@ -35,7 +36,7 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     // button
     genButton = new QPushButton;
     genButton->setIcon(QIcon(":/resource/images/gear.jpg"));
-    genButton->setIconSize(QSize(dw.height()*0.1, dw.height()*0.1));
+    genButton->setIconSize(QSize(mainScreenSize.height()*0.1, mainScreenSize.height()*0.1));
     connect(genButton, SIGNAL(clicked(bool)), this, SLOT(handleGenerateAction()));
 
     // tree visualisation
@@ -88,7 +89,7 @@ void TemplateMenu::handleSaveAction()
     Storage& storage = Storage::Instance();
     bool status = storage.saveTemplate(contentTemplate);
     if(!status){
-        font.setPointSize(dw.height()*0.013);
+        font.setPointSize(mainScreenSize.height()*0.013);
         messageBox.setFont(font);
         messageBox.setText("Template not saved!");
         messageBox.exec();
@@ -100,7 +101,7 @@ void TemplateMenu::handleDeleteAction()
     Storage& storage = Storage::Instance();
     bool status = storage.deleteTemplate(QString::fromUtf8(contentTemplate->getTitle().c_str()));
     if(!status){
-        font.setPointSize(dw.height()*0.013);
+        font.setPointSize(mainScreenSize.height()*0.013);
         messageBox.setFont(font);
         messageBox.setText("Template not deleted!");
         messageBox.exec();
@@ -111,7 +112,7 @@ void TemplateMenu::handleGenerateAction()
 {
     Content* content = contentTemplate->generateContent();
 
-    font.setPointSize(dw.height()*0.015);
+    font.setPointSize(mainScreenSize.height()*0.015);
 
     QTextEdit *text = new QTextEdit;
     text->setPlainText(QString::fromUtf8(content->getStr().c_str()));
@@ -122,7 +123,7 @@ void TemplateMenu::handleGenerateAction()
     mainLayout->addWidget(text);
 
     QWidget *contentWindow = new QWidget(0);
-    contentWindow->setFixedSize(dw.width()*0.4, dw.height()*0.4);
+    contentWindow->setFixedSize(mainScreenSize.width()*0.4, mainScreenSize.height()*0.4);
     contentWindow->setWindowModality(Qt::ApplicationModal);
     contentWindow->setWindowIcon(QIcon(":/resource/images/tree.jpg"));
     contentWindow->setWindowTitle("Generated content");

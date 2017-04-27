@@ -23,7 +23,8 @@ private:
     QWidget *innerWidget;
     QLabel *label;
     QFont font;
-    QDesktopWidget dw;
+    QDesktopWidget desktopWidget;
+    QRect mainScreenSize;
 };
 
 #endif // MAINMENU_H

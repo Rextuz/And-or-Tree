@@ -4,11 +4,12 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setWindowIcon(QIcon(":/resource/images/tree.jpg"));
-    setFixedSize(dw.width()*0.8, dw.height()*0.8);
+    mainScreenSize = desktopWidget.screenGeometry(desktopWidget.primaryScreen());
+    setFixedSize(mainScreenSize.width()*0.8, mainScreenSize.height()*0.8);
 
     // for message box
     font.setFamily("Segoe UI Light");
-    font.setPointSize(dw.height()*0.013);
+    font.setPointSize(mainScreenSize.height()*0.013);
     messageBox.setWindowIcon(QIcon(":/resource/images/tree.jpg"));
     messageBox.setWindowTitle("Error");
     messageBox.setIcon(QMessageBox::Critical);
