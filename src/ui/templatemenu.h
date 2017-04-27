@@ -29,12 +29,12 @@ private slots:
     void handleGenerateAction();
 
 private:
-    QVBoxLayout *mainLayout;
+    QVBoxLayout *mainLayout, *vLayout;
     QHBoxLayout *hLayout;
     QMenuBar *menuBar;
     QAction *backAction, *saveAction, *deleteAction;
-    QTextEdit *templateText, *treeText;
-    QLabel *templateLabel, *treeLabel;
+    QTextEdit *templateText, *treeText, *answerText;
+    QLabel *templateLabel, *treeLabel, *answerLabel;
     QPushButton* genButton;
     QFont font;
     QDesktopWidget dw;

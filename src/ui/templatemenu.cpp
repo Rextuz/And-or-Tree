@@ -35,7 +35,7 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     // button
     genButton = new QPushButton;
     genButton->setIcon(QIcon(":/resource/images/gear.jpg"));
-    genButton->setIconSize(QSize(85,85));
+    genButton->setIconSize(QSize(dw.height()*0.1, dw.height()*0.1));
     connect(genButton, SIGNAL(clicked(bool)), this, SLOT(handleGenerateAction()));
 
     // tree visualisation
@@ -43,23 +43,43 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     treeText->setFont(font);
 
     // layout
+    hLayout = new QHBoxLayout;
+
+    vLayout = new QVBoxLayout;
+    vLayout->addWidget(templateLabel);
+    vLayout->addWidget(templateText);
+
+    if(typeid(*contentTemplate) == typeid(TaskTemplate)) {
+        answerLabel = new QLabel("Answer");
+        answerLabel->setFont(font);
+        answerLabel->setAlignment(Qt::AlignCenter);
+
+        answerText = new QTextEdit;
+        answerText->setPlainText(QString::fromUtf8(((TaskTemplate *)contentTemplate)->getAnswer().c_str()));
+        answerText->setFont(font);
+
+        vLayout->addWidget(answerLabel);
+        vLayout->addWidget(answerText);
+    }
+
+    hLayout->addLayout(vLayout);
+
+    vLayout = new QVBoxLayout;
+    vLayout->addWidget(treeLabel);
+    vLayout->addWidget(treeText);
+    hLayout->addLayout(vLayout);
+
+    hLayout->addWidget(genButton);
+
     mainLayout = new QVBoxLayout;
     mainLayout->setMenuBar(menuBar);
-    mainLayout->addWidget(templateLabel);
-    hLayout = new QHBoxLayout;
-    hLayout->addWidget(templateText);
-    hLayout->addWidget(genButton, 0, Qt::AlignCenter);
     mainLayout->addLayout(hLayout);
-    mainLayout->addWidget(treeLabel);
-    mainLayout->addWidget(treeText);
     setLayout(mainLayout);
 
     // for message box
-    font.setPointSize(dw.height()*0.013);
     messageBox.setWindowIcon(QIcon(":/resource/images/tree.jpg"));
     messageBox.setWindowTitle("Error");
     messageBox.setIcon(QMessageBox::Critical);
-    messageBox.setFont(font);
 }
 
 void TemplateMenu::handleSaveAction()
@@ -68,6 +88,8 @@ void TemplateMenu::handleSaveAction()
     Storage& storage = Storage::Instance();
     bool status = storage.saveTemplate(contentTemplate);
     if(!status){
+        font.setPointSize(dw.height()*0.013);
+        messageBox.setFont(font);
         messageBox.setText("Template not saved!");
         messageBox.exec();
     }
@@ -78,6 +100,8 @@ void TemplateMenu::handleDeleteAction()
     Storage& storage = Storage::Instance();
     bool status = storage.deleteTemplate(QString::fromUtf8(contentTemplate->getTitle().c_str()));
     if(!status){
+        font.setPointSize(dw.height()*0.013);
+        messageBox.setFont(font);
         messageBox.setText("Template not deleted!");
         messageBox.exec();
     }
@@ -86,6 +110,22 @@ void TemplateMenu::handleDeleteAction()
 void TemplateMenu::handleGenerateAction()
 {
     Content* content = contentTemplate->generateContent();
-    qDebug()<<QString::fromUtf8(content->getStr().c_str());
-    /// TODO show window with content
+
+    font.setPointSize(dw.height()*0.015);
+
+    QTextEdit *text = new QTextEdit;
+    text->setPlainText(QString::fromUtf8(content->getStr().c_str()));
+    text->setReadOnly(true);
+    text->setFont(font);
+
+    mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(text);
+
+    QWidget *contentWindow = new QWidget(0);
+    contentWindow->setFixedSize(dw.width()*0.4, dw.height()*0.4);
+    contentWindow->setWindowModality(Qt::ApplicationModal);
+    contentWindow->setWindowIcon(QIcon(":/resource/images/tree.jpg"));
+    contentWindow->setWindowTitle("Generated content");
+    contentWindow->setLayout(mainLayout);
+    contentWindow->show();
 }
