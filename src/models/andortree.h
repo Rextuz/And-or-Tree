@@ -18,6 +18,10 @@ public:
     {
         root = new Node<T>(type);
     }
+    AndOrTree(Node<T> *root)
+    {
+        this->root = root;
+    }
     Node<T> *addNode(Node<T> *parent, NodeType type)
     {
         Node<T> *newNode = new Node<T>(type);
