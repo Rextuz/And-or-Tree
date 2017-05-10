@@ -51,9 +51,11 @@ int main(int argc, char *argv[])
     // End of Tree test
 
     // Serializer test
-    cout << "\n-----Serialized tree-----" << endl;
-    serialize(std::cout, tree->getRoot(), 0);
-    cout << "\n-----End of Serialized tree-----" << endl;
+    qDebug() << "\n-----Serialized tree-----" << endl;
+    const QString filename = "tree.xml";
+    tree->write(filename);
+    qDebug() << "Tree is serialized into file " << filename << endl;
+    qDebug() << "\n-----End of Serialized tree-----" << endl;
     // End of serializer test
 
     // Deserializer test

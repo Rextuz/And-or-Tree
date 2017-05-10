@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 QMAKE_CXXFLAGS += -std=c++0x
 
@@ -25,7 +25,8 @@ SOURCES += src/logic/main.cpp \
     src/logic/storage.cpp \
     src/logic/joketemplatecreator.cpp \
     src/logic/tasktemplatecreator.cpp \
-    src/ui/savemenu.cpp
+    src/ui/savemenu.cpp \
+    src/models/serializer.cpp
 
 HEADERS  += src/ui/mainwindow.h \
     src/models/andortree.h \
