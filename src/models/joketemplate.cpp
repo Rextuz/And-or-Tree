@@ -23,7 +23,7 @@ void JokeTemplate::read(const QJsonObject &json)
     QJsonObject treeObject = json["tree"].toObject();
     delete tree;
     tree = new AndOrTree<LexicalPair>(t_and);
-    tree->read(treeObject);
+    // TODO read tree
 }
 
 void JokeTemplate::write(QJsonObject &json) const
@@ -31,8 +31,6 @@ void JokeTemplate::write(QJsonObject &json) const
     json["type"] = "joke";
     json["title"] = QString::fromUtf8(title.c_str());
     json["text"] = QString::fromUtf8(text.c_str());
-    QJsonObject treeObject;
-    tree->write(treeObject);
-    json["tree"] = treeObject;
+    // TODO write tree
 }
 

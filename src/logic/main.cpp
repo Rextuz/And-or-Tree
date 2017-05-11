@@ -7,6 +7,7 @@ using std::cout;
 using std::endl;
 
 #include "../models/andortree.h"
+#include "../models/serializer.h"
 #include "src/models/lexicalpair.h"
 #include "src/models/joketemplate.h"
 #include "src/logic/storage.h"
@@ -47,7 +48,32 @@ int main(int argc, char *argv[])
     }
     cout << "-----End of Dictionary-----\n" << endl;
     // End of getDictionary() test
-    // End of Tree test  
+    // End of Tree test
+
+    // Serializer test
+    const QString filename = "tree.xml";
+    tree->write(filename);
+    qDebug() << "Tree is serialized into file " << filename << endl;
+    // End of serializer test
+
+    // Deserializer test
+    QDomDocument *document = new QDomDocument();
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly) || !document->setContent(&file))
+        qDebug() << "Error while opening the file " << filename << endl;
+
+    Node<LexicalPair> *root = deserialize(document);
+
+    file.close();
+
+    AndOrTree<LexicalPair> *newTree = new AndOrTree<LexicalPair>(root);
+    qDebug() << "Tree deserialized with root type " << newTree->getRoot()->getType() << endl;
+    // End of deserializer test
+
+    // Deserializer test
+    // Node<LexicalPair> *node = nullptr;
+    // deserialize(std::cin, node);
+    // End of deserializer test
 
     // Use Factory methods to create templates
     CTCreator* creator1 = new JokeTemplateCreator();

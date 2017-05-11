@@ -24,7 +24,7 @@ void TaskTemplate::read(const QJsonObject &json)
     QJsonObject treeObject = json["tree"].toObject();
     delete tree;
     tree = new AndOrTree<LexicalPair>(t_and);
-    tree->read(treeObject);
+    // TODO read tree
 }
 
 void TaskTemplate::write(QJsonObject &json) const
@@ -33,9 +33,7 @@ void TaskTemplate::write(QJsonObject &json) const
     json["title"] = QString::fromUtf8(title.c_str());
     json["text"] = QString::fromUtf8(text.c_str());
     json["answer"] = QString::fromUtf8(answer.c_str());
-    QJsonObject treeObject;
-    tree->write(treeObject);
-    json["tree"] = treeObject;
+    // TODO write tree
 }
 
 std::string TaskTemplate::getAnswer() const

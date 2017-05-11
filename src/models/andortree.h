@@ -1,8 +1,10 @@
 #ifndef ANDORTREE_H
 #define ANDORTREE_H
 
-#include "node.h"
 #include <QJsonObject>
+
+#include "node.h"
+#include "serializer.h"
 
 // Polymorphic tree container
 template <class T>
@@ -17,6 +19,10 @@ public:
     AndOrTree(NodeType type)
     {
         root = new Node<T>(type);
+    }
+    AndOrTree(Node<T> *root)
+    {
+        this->root = root;
     }
     Node<T> *addNode(Node<T> *parent, NodeType type)
     {
@@ -41,16 +47,24 @@ public:
         /// TODO Max implement
     }
 
-    void read(const QJsonObject &json)
+    void read()
     {
 
-        /// TODO Max implement http://doc.qt.io/qt-5/qtcore-json-savegame-example.html
     }
 
-    void write(QJsonObject &json) const
+    void write(const QString filename)
     {
-        json["root"] = "some root";
-        /// TODO Max implement http://doc.qt.io/qt-5/qtcore-json-savegame-example.html
+        QDomDocument *document = new QDomDocument();
+
+        serialize(this->getRoot(), document);
+
+        QFile file(filename);
+        file.open(QIODevice::WriteOnly | QIODevice::Text);
+        QTextStream stream(&file);
+
+        stream << document->toString();
+
+        file.close();
     }
 };
 
