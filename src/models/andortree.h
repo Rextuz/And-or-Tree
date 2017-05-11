@@ -47,10 +47,9 @@ public:
         /// TODO Max implement
     }
 
-    static AndOrTree<T> *read(/*const QString filename*/)
+    void read()
     {
-        /*Node<T> *root = deserialize();
-        return new AndOrTree<T>(root);*/
+
     }
 
     void write(const QString filename)

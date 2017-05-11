@@ -51,12 +51,24 @@ int main(int argc, char *argv[])
     // End of Tree test
 
     // Serializer test
-    qDebug() << "\n-----Serialized tree-----" << endl;
     const QString filename = "tree.xml";
     tree->write(filename);
     qDebug() << "Tree is serialized into file " << filename << endl;
-    qDebug() << "\n-----End of Serialized tree-----" << endl;
     // End of serializer test
+
+    // Deserializer test
+    QDomDocument *document = new QDomDocument();
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly) || !document->setContent(&file))
+        qDebug() << "Error while opening the file " << filename << endl;
+
+    Node<LexicalPair> *root = deserialize(document);
+
+    file.close();
+
+    AndOrTree<LexicalPair> *newTree = new AndOrTree<LexicalPair>(root);
+    qDebug() << "Tree deserialized with root type " << newTree->getRoot()->getType() << endl;
+    // End of deserializer test
 
     // Deserializer test
     // Node<LexicalPair> *node = nullptr;

@@ -7,6 +7,6 @@
 #include "lexicalpair.h"
 
 void serialize(Node<LexicalPair> *node, QDomDocument *document, QDomElement *root = nullptr);
-// Node<T> *deserialize(QDomDocument *document);
+Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl = nullptr);
 
 #endif // __SERIALIZER_H__

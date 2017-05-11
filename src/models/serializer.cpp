@@ -27,7 +27,37 @@ void serialize(Node<LexicalPair> *node, QDomDocument *document, QDomElement *roo
     }
 }
 
-/*Node<LexicalPair> *deserialize()
+Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl)
 {
+    Node<LexicalPair> *current = nullptr;
 
-}*/
+    QDomElement nodeEl;
+    if (_nodeEl == nullptr)
+        nodeEl = document->documentElement();
+    else
+        nodeEl = *_nodeEl;
+
+    QString typeAttr = nodeEl.attribute("type");
+    if (typeAttr == "2"/*t_leaf*/)
+    {
+        QDomElement dataEl = nodeEl.firstChildElement("data");
+        QString keyAttr = dataEl.attribute("key");
+        QString valueAttr = dataEl.attribute("value");
+        LexicalPair *data = new LexicalPair(keyAttr.toUtf8().constData(), valueAttr.toUtf8().constData());
+        current = new Node<LexicalPair>(data);
+    } else if (typeAttr == "1")
+        current = new Node<LexicalPair>(t_or);
+    else if (typeAttr == "0")
+        current = new Node<LexicalPair>(t_and);
+
+    QDomElement children = nodeEl.firstChildElement("children");
+    QDomNodeList nodes = children.childNodes();
+    for (int i = 0; i < nodes.size(); i++)
+    {
+        QDomNode tmpNode = nodes.item(i);
+        QDomElement currentNode = tmpNode.toElement();
+        Node<LexicalPair> *newNode = deserialize(document, &currentNode);
+        current->addChild(newNode);
+    }
+    return current;
+}
