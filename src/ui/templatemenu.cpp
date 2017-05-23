@@ -1,4 +1,9 @@
 #include "templatemenu.h"
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsTextItem>
+#include <QGraphicsItem>
+#include <typeinfo>
 
 TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : QWidget(parent)
 {
@@ -39,9 +44,63 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     genButton->setIconSize(QSize(mainScreenSize.height()*0.1, mainScreenSize.height()*0.1));
     connect(genButton, SIGNAL(clicked(bool)), this, SLOT(handleGenerateAction()));
 
-    // tree visualisation
-    treeText = new QTextEdit("Tree");
-    treeText->setFont(font);
+    // tree visualization
+    QGraphicsScene *scene = new QGraphicsScene;
+    QGraphicsTextItem *andItem = scene->addText("and",font);
+    andItem->setPos(5,5);
+    scene->addEllipse(0,0,50,50);
+    scene->addLine(50,25,65,25);
+    scene->addLine(25,50,25,445);
+    scene->addLine(25,165,65,165);
+    scene->addLine(25,445,70,445);
+    QGraphicsTextItem *orItem = scene->addText("or",font);
+    orItem->setPos(75,5);
+    scene->addEllipse(65,0,50,50);
+    scene->addLine(115,25,140,25);
+    scene->addLine(90,50,90,95);
+    scene->addLine(90,95,140,95);
+    QGraphicsTextItem *leafItem = scene->addText("(А) Кэт",font);
+    leafItem->setPos(145,5);
+    scene->addRect(140,0,150,50);
+    QGraphicsTextItem *leafItem2 = scene->addText("(А) Маша",font);
+    leafItem2->setPos(145,75);
+    scene->addRect(140,70,150,50);
+    QGraphicsTextItem *orItem2 = scene->addText("or",font);
+    orItem2->setPos(75,145);
+    scene->addEllipse(65,140,50,50);
+    scene->addLine(115,165,140,165);
+    scene->addLine(90,190,90,305);
+    scene->addLine(90,305,140,305);
+    QGraphicsTextItem *andItem2 = scene->addText("and",font);
+    andItem2->setPos(145,145);
+    scene->addEllipse(140,140,50,50);
+    scene->addLine(190,165,210,165);
+    scene->addLine(165,190,165,235);
+    scene->addLine(165,235,210,235);
+    QGraphicsTextItem *leafItem3 = scene->addText("(B) Штирлицу",font);
+    leafItem3->setPos(215,145);
+    scene->addRect(210,140,150,50);
+    QGraphicsTextItem *leafItem4 = scene->addText("(С) Штирлиц",font);
+    leafItem4->setPos(215,215);
+    scene->addRect(210,210,150,50);
+    QGraphicsTextItem *andItem3 = scene->addText("and",font);
+    andItem3->setPos(145,285);
+    scene->addEllipse(140,280,50,50);
+    scene->addLine(190,305,210,305);
+    scene->addLine(165,330,165,375);
+    scene->addLine(165,375,210,375);
+    QGraphicsTextItem *leafItem5 = scene->addText("(B) Пете",font);
+    leafItem5->setPos(215,285);
+    scene->addRect(210,280,150,50);
+    QGraphicsTextItem *leafItem6 = scene->addText("(С) Петя",font);
+    leafItem6->setPos(215,355);
+    scene->addRect(210,350,150,50);
+    QGraphicsTextItem *leafItem7 = scene->addText("(E) лежало",font);
+    leafItem7->setPos(75,425);
+    scene->addRect(70,420,150,50);
+
+    QGraphicsView *view = new QGraphicsView;
+    view->setScene(scene);
 
     // layout
     hLayout = new QHBoxLayout;
@@ -67,7 +126,7 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
 
     vLayout = new QVBoxLayout;
     vLayout->addWidget(treeLabel);
-    vLayout->addWidget(treeText);
+    vLayout->addWidget(view);
     hLayout->addLayout(vLayout);
 
     hLayout->addWidget(genButton);

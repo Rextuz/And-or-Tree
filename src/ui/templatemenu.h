@@ -33,7 +33,7 @@ private:
     QHBoxLayout *hLayout;
     QMenuBar *menuBar;
     QAction *backAction, *saveAction, *deleteAction;
-    QTextEdit *templateText, *treeText, *answerText;
+    QTextEdit *templateText, *answerText;
     QLabel *templateLabel, *treeLabel, *answerLabel;
     QPushButton* genButton;
     QFont font;
