@@ -39,12 +39,12 @@ int main(int argc, char *argv[])
 
     // getDictionary() test
     cout << "\n-----Dictionary-----" << endl;
-    vector<LexicalPair*> *dictionary = new vector<LexicalPair*>();
-    LexicalPair::getDictionary(tree->getRoot(), time(nullptr), dictionary);
-    for (unsigned int i = 0; i < dictionary->size(); i++)
-    {
-        LexicalPair *pair = dictionary->at(i);
-        cout << pair->getKey() << ": " << pair->getValue() << endl;
+    map<string, string> dictionary = LexicalPair::getDictionary(tree->getRoot(), time(nullptr));
+
+    map<string, string>::iterator mapIterator = dictionary.begin();
+    while (mapIterator != dictionary.end()) {
+        cout << mapIterator->first << ": " << mapIterator->second << endl;
+        mapIterator++;
     }
     cout << "-----End of Dictionary-----\n" << endl;
     // End of getDictionary() test
