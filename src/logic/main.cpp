@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
     tree->addLeaf(actions_where, new LexicalPair("C", "At home"));
     tree->addLeaf(actions_where, new LexicalPair("C", "In the forest"));
 
+    actions->deleteChild(0);    // Delete actions_what branch
+
     // getDictionary() test
     cout << "\n-----Dictionary-----" << endl;
     map<string, string> dictionary = LexicalPair::getDictionary(tree->getRoot(), time(nullptr));
@@ -55,6 +57,8 @@ int main(int argc, char *argv[])
     tree->write(filename);
     qDebug() << "Tree is serialized into file " << filename << endl;
     // End of serializer test
+
+    delete tree;
 
     // Deserializer test
     QDomDocument *document = new QDomDocument();
