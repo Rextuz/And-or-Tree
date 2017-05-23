@@ -44,12 +44,8 @@ public:
     // Tree destructor
     ~AndOrTree()
     {
-        /// TODO Max implement
-    }
-
-    void read()
-    {
-
+        cout << "Tree destructor" << endl;
+        delete root;
     }
 
     void write(const QString filename)
