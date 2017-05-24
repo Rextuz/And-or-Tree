@@ -1,0 +1,31 @@
+<node type="0">
+ <children>
+  <node type="1">
+   <children>
+    <node type="2">
+     <data key="A" value="Max"/>
+    </node>
+    <node type="2">
+     <data key="A" value="Denis"/>
+    </node>
+    <node type="2">
+     <data key="A" value="Efim"/>
+    </node>
+   </children>
+  </node>
+  <node type="0">
+   <children>
+    <node type="1">
+     <children>
+      <node type="2">
+       <data key="C" value="At home"/>
+      </node>
+      <node type="2">
+       <data key="C" value="In the forest"/>
+      </node>
+     </children>
+    </node>
+   </children>
+  </node>
+ </children>
+</node>

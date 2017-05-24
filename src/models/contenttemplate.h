@@ -25,8 +25,8 @@ public:
 
     virtual Content* generateContent() = 0;
 
-    virtual void read(const QJsonObject &json) = 0;
-    virtual void write(QJsonObject &json) const = 0;
+    virtual void read(const QJsonObject &json, const QString xml_filename) = 0;
+    virtual void write(QJsonObject &json, const QString xml_filename) const = 0;
 
 protected:
     const int uid;

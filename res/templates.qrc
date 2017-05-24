@@ -3,4 +3,8 @@
         <file>templates/Apples.json</file>
         <file>templates/Chest.json</file>
     </qresource>
+    <qresource prefix="/">
+        <file>templates/Apples.xml</file>
+        <file>templates/Chest.xml</file>
+    </qresource>
 </RCC>

@@ -1,4 +1,5 @@
 #include "tasktemplate.h"
+#include "serializer.h"
 
 TaskTemplate::TaskTemplate(std::string title) : ContentTemplate(title)
 {
@@ -16,24 +17,23 @@ Content *TaskTemplate::generateContent()
     return new Content("task!");
 }
 
-void TaskTemplate::read(const QJsonObject &json)
+void TaskTemplate::read(const QJsonObject &json, const QString xml_filename)
 {
     title = json["title"].toString().toUtf8().constData();
     text = json["text"].toString().toUtf8().constData();
     answer = json["answer"].toString().toUtf8().constData();
     QJsonObject treeObject = json["tree"].toObject();
     delete tree;
-    tree = new AndOrTree<LexicalPair>(t_and);
-    // TODO read tree
+    tree = readTree(xml_filename);
 }
 
-void TaskTemplate::write(QJsonObject &json) const
+void TaskTemplate::write(QJsonObject &json, const QString xml_filename) const
 {
     json["type"] = "task";
     json["title"] = QString::fromUtf8(title.c_str());
     json["text"] = QString::fromUtf8(text.c_str());
     json["answer"] = QString::fromUtf8(answer.c_str());
-    // TODO write tree
+    writeTree(tree, xml_filename);
 }
 
 std::string TaskTemplate::getAnswer() const
