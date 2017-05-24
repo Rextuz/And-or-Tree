@@ -11,6 +11,9 @@
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QMessageBox>
+#include <typeinfo>
+
+#include "visualizator.h"
 #include "src/logic/storage.h"
 #include "src/models/contenttemplate.h"
 

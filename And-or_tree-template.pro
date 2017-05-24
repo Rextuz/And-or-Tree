@@ -26,7 +26,8 @@ SOURCES += src/logic/main.cpp \
     src/logic/joketemplatecreator.cpp \
     src/logic/tasktemplatecreator.cpp \
     src/ui/savemenu.cpp \
-    src/models/serializer.cpp
+    src/models/serializer.cpp \
+    src/ui/visualizator.cpp
 
 HEADERS  += src/ui/mainwindow.h \
     src/models/andortree.h \
@@ -43,7 +44,8 @@ HEADERS  += src/ui/mainwindow.h \
     src/logic/tasktemplatecreator.h \
     src/models/lexicalpair.h \
     src/ui/savemenu.h \
-    src/models/serializer.h
+    src/models/serializer.h \
+    src/ui/visualizator.h
 
 RESOURCES += \
     res/images.qrc \
