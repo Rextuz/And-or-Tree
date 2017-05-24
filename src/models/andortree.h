@@ -41,6 +41,15 @@ public:
         parent->addChild(newNode);
         return newNode;
     }
+
+    typename Node<T>::Iterator begin() {
+        return root->begin();
+    }
+
+    typename Node<T>::Iterator end() {
+        return root->end();
+    }
+
     // Returns root element
     Node<T> *getRoot()
     {

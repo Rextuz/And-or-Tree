@@ -43,7 +43,9 @@ int main(int argc, char *argv[])
 
     cout << "Tree size = " << tree->size() << endl;
 
+    // Destructor test pt 1
     actions->deleteChild(0);    // Delete actions_what branch
+    // End of destructor test pt 1
 
     cout << "Tree size = " << tree->size() << endl;
 
@@ -66,8 +68,32 @@ int main(int argc, char *argv[])
     qDebug() << "Tree is serialized into file " << filename << endl;
     // End of serializer test
 
-    delete tree;
+    // Iterator test
+    Node<LexicalPair>::Iterator node_it = tree->begin();
+    Node<LexicalPair>::Iterator node_it2 = tree->end();
+    if (node_it == node_it2) {
+        cout << "Iterators are equal" << endl;
+    } else {
+        cout << "Iterators are not equal" << endl;
+    }
+    while (node_it != node_it2)
+        node_it++;
+    // End of iterator test
 
+    // Destructor test pt 2
+    delete tree;
+    // End of destructor test pt 2
+
+    // Allocator test
+    Node<LexicalPair>::Allocator allocator;
+    Node<LexicalPair> *aNode = allocator.allocate(2);
+    Node<LexicalPair> *aNode2 = aNode + Node<LexicalPair>::Allocator::chunk_size;
+    allocator.construct(aNode, t_or);
+    allocator.construct(aNode2, new LexicalPair("A", "Denis"));
+    allocator.destroy(aNode);
+    allocator.destroy(aNode2);
+    allocator.deallocate(aNode, 2);
+    // End of allocator test
     // Deserializer test
     QDomDocument *document = new QDomDocument();
     QFile file(filename);
