@@ -21,8 +21,12 @@ int main(int argc, char *argv[])
     // Create tree
     AndOrTree<LexicalPair> *tree = new AndOrTree<LexicalPair>(t_and);
 
+    cout << "Tree size = " << tree->size() << endl;
+
     Node<LexicalPair> *characters = tree->addNode(tree->getRoot(), t_or);
+    cout << "Tree size = " << tree->size() << endl;
     Node<LexicalPair> *actions = tree->addNode(tree->getRoot(), t_and);
+    cout << "Tree size = " << tree->size() << endl;
     Node<LexicalPair> *actions_what = tree->addNode(actions, t_and);
     Node<LexicalPair> *actions_where = tree->addNode(actions, t_or);
 
@@ -37,7 +41,11 @@ int main(int argc, char *argv[])
     tree->addLeaf(actions_where, new LexicalPair("C", "At home"));
     tree->addLeaf(actions_where, new LexicalPair("C", "In the forest"));
 
+    cout << "Tree size = " << tree->size() << endl;
+
     actions->deleteChild(0);    // Delete actions_what branch
+
+    cout << "Tree size = " << tree->size() << endl;
 
     // getDictionary() test
     cout << "\n-----Dictionary-----" << endl;

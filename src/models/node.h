@@ -30,6 +30,14 @@ public:
             delete children->at(i);
     }
 
+    size_t size() {
+        size_t this_size = children->size();
+        for (size_t i = 0; i < children->size(); i++) {
+            this_size += children->at(i)->size();
+        }
+        return this_size;
+    }
+
     // Leaf
     Node(T *data)
     {

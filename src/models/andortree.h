@@ -24,6 +24,11 @@ public:
     {
         this->root = root;
     }
+
+    size_t size() {
+        return root->size() + 1;
+    }
+
     Node<T> *addNode(Node<T> *parent, NodeType type)
     {
         Node<T> *newNode = new Node<T>(type);
