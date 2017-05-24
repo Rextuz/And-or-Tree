@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
     // Serializer test
     const QString filename = "tree.xml";
-    tree->write(filename);
+    writeTree(tree, filename);
     qDebug() << "Tree is serialized into file " << filename << endl;
     // End of serializer test
 
@@ -94,17 +94,9 @@ int main(int argc, char *argv[])
     allocator.destroy(aNode2);
     allocator.deallocate(aNode, 2);
     // End of allocator test
+
     // Deserializer test
-    QDomDocument *document = new QDomDocument();
-    QFile file(filename);
-    if (!file.open(QIODevice::ReadOnly) || !document->setContent(&file))
-        qDebug() << "Error while opening the file " << filename << endl;
-
-    Node<LexicalPair> *root = deserialize(document);
-
-    file.close();
-
-    AndOrTree<LexicalPair> *newTree = new AndOrTree<LexicalPair>(root);
+    AndOrTree<LexicalPair> *newTree = readTree(filename);
     qDebug() << "Tree deserialized with root type " << newTree->getRoot()->getType() << endl;
     // End of deserializer test
 

@@ -61,3 +61,32 @@ Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl)
     }
     return current;
 }
+
+AndOrTree<LexicalPair> *readTree(const QString filename) {
+    QDomDocument *document = new QDomDocument();
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly) || !document->setContent(&file))
+        qDebug() << "Error while opening the file " << filename << endl;
+
+    Node<LexicalPair> *root = deserialize(document);
+
+    file.close();
+
+    return new AndOrTree<LexicalPair>(root);
+}
+
+
+void writeTree(AndOrTree<LexicalPair> *tree, const QString filename)
+{
+    QDomDocument *document = new QDomDocument();
+
+    serialize(tree->getRoot(), document);
+
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream stream(&file);
+
+    stream << document->toString();
+
+    file.close();
+}

@@ -4,7 +4,6 @@
 #include <QJsonObject>
 
 #include "node.h"
-#include "serializer.h"
 
 // Polymorphic tree container
 template <class T>
@@ -60,21 +59,6 @@ public:
     {
         cout << "Tree destructor" << endl;
         delete root;
-    }
-
-    void write(const QString filename)
-    {
-        QDomDocument *document = new QDomDocument();
-
-        serialize(this->getRoot(), document);
-
-        QFile file(filename);
-        file.open(QIODevice::WriteOnly | QIODevice::Text);
-        QTextStream stream(&file);
-
-        stream << document->toString();
-
-        file.close();
     }
 };
 
