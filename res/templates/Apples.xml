@@ -1,0 +1,41 @@
+<node type="0">
+ <children>
+  <node type="1">
+   <children>
+    <node type="2">
+     <data key="A" value="Kate"/>
+    </node>
+    <node type="2">
+     <data key="A" value="Masha"/>
+    </node>
+   </children>
+  </node>
+  <node type="1">
+   <children>
+    <node type="0">
+     <children>
+      <node type="2">
+       <data key="B" value="Shtirlizu"/>
+      </node>
+      <node type="2">
+       <data key="C" value="Shtirliz"/>
+      </node>
+     </children>
+    </node>
+    <node type="0">
+     <children>
+      <node type="2">
+       <data key="B" value="Pete"/>
+      </node>
+      <node type="2">
+       <data key="C" value="Petya"/>
+      </node>
+     </children>
+    </node>
+   </children>
+  </node>
+  <node type="2">
+   <data key="E" value="lezhalo"/>
+  </node>
+ </children>
+</node>

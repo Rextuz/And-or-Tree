@@ -13,6 +13,8 @@ void Storage::reloadList()
         dir.mkdir("templates");
         QFile::copy(":/resource/templates/Apples.json", "templates/Apples.json");
         QFile::copy(":/resource/templates/Chest.json", "templates/Chest.json");
+        QFile::copy(":/resource/templates/Apples.xml", "templates/Apples.xml");
+        QFile::copy(":/resource/templates/Chest.xml", "templates/Chest.xml");
     }
 
     dir.cd("templates");
@@ -33,7 +35,10 @@ void Storage::reloadList()
 // return NULL if couldn't load
 ContentTemplate* Storage::loadTemplate(QString name)
 {
+    QString xml_name;
     name.prepend("templates/");
+    xml_name = name;
+    xml_name.append(".xml");
     name.append(".json");
     QFile loadFile(name);
 
@@ -60,7 +65,7 @@ ContentTemplate* Storage::loadTemplate(QString name)
         contentTemplate = NULL;
     }
 
-    contentTemplate->read(json);
+    contentTemplate->read(json, xml_name);
 
     return contentTemplate;
 }
@@ -68,7 +73,10 @@ ContentTemplate* Storage::loadTemplate(QString name)
 bool Storage::saveTemplate(ContentTemplate *contentTemplate) const
 {
     QString name = QString::fromUtf8(contentTemplate->getTitle().c_str());
+    QString xml_name;
     name.prepend("templates/");
+    xml_name = name;
+    xml_name.append(".xml");
     name.append(".json");
     QFile saveFile(name);
 
@@ -79,7 +87,7 @@ bool Storage::saveTemplate(ContentTemplate *contentTemplate) const
     }
 
     QJsonObject gameObject;
-    contentTemplate->write(gameObject);
+    contentTemplate->write(gameObject, xml_name);
     QJsonDocument saveDoc(gameObject);
     saveFile.write(saveDoc.toJson());
 

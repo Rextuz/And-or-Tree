@@ -15,8 +15,8 @@ public:
 
     Content* generateContent();
 
-    void read(const QJsonObject &json);
-    void write(QJsonObject &json) const;
+    void read(const QJsonObject &json, const QString xml_filename);
+    void write(QJsonObject &json, const QString xml_filename) const;
 
 private:
     std::string answer;

@@ -1,0 +1,36 @@
+<node type="1">
+ <children>
+  <node type="0">
+   <children>
+    <node type="2">
+     <data key="A" value="10"/>
+    </node>
+    <node type="2">
+     <data key="B" value="5"/>
+    </node>
+    <node type="2">
+     <data key="C" value="3"/>
+    </node>
+    <node type="2">
+     <data key="D" value="12"/>
+    </node>
+   </children>
+  </node>
+  <node type="0">
+   <children>
+    <node type="2">
+     <data key="A" value="11"/>
+    </node>
+    <node type="2">
+     <data key="B" value="3"/>
+    </node>
+    <node type="2">
+     <data key="C" value="5"/>
+    </node>
+    <node type="2">
+     <data key="D" value="9"/>
+    </node>
+   </children>
+  </node>
+ </children>
+</node>

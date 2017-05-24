@@ -2,5 +2,7 @@
     <qresource prefix="/resource">
         <file>templates/Apples.json</file>
         <file>templates/Chest.json</file>
+	<file>templates/Apples.xml</file>
+        <file>templates/Chest.xml</file>
     </qresource>
 </RCC>

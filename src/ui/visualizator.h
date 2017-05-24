@@ -7,6 +7,7 @@
 #include <QGraphicsItem>
 
 #include "src/models/andortree.h"
+#include "src/models/lexicalpair.h"
 
 class Visualizator
 {

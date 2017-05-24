@@ -39,29 +39,8 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     genButton->setIconSize(QSize(mainScreenSize.height()*0.1, mainScreenSize.height()*0.1));
     connect(genButton, SIGNAL(clicked(bool)), this, SLOT(handleGenerateAction()));
 
-    // --------------------------- EXAMPLE -------------------------------
-    AndOrTree<LexicalPair> *tree = new AndOrTree<LexicalPair>(t_and);
-
-    Node<LexicalPair> *characters = tree->addNode(tree->getRoot(), t_or);
-    Node<LexicalPair> *actions = tree->addNode(tree->getRoot(), t_and);
-    Node<LexicalPair> *actions_what = tree->addNode(actions, t_and);
-    Node<LexicalPair> *actions_where = tree->addNode(actions, t_or);
-
-    // Populate with characters
-    tree->addLeaf(characters, new LexicalPair("A", "Max"));
-    tree->addLeaf(characters, new LexicalPair("A", "Denis"));
-    tree->addLeaf(characters, new LexicalPair("A", "Efim"));
-
-    // Populate with actions
-    tree->addLeaf(actions_what, new LexicalPair("B", "Dance"));
-    tree->addLeaf(actions_what, new LexicalPair("B", "Sing"));
-    tree->addLeaf(actions_where, new LexicalPair("C", "At home"));
-    tree->addLeaf(actions_where, new LexicalPair("C", "In the forest"));
-    tree->addLeaf(actions_where, new LexicalPair("C", "In the bar"));
-    // -------------------------------------------------------------------
-
     // tree visualization
-    Visualizator *visualizator = new Visualizator(tree);
+    Visualizator *visualizator = new Visualizator(contentTemplate->getTree());
     QGraphicsView *view = visualizator->getView();
 
     // layout
