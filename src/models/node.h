@@ -12,10 +12,56 @@ enum NodeType { t_and, t_or, t_leaf };
 
 template <class T>
 class Node {
+public:
+    class Iterator {
+    private:
+        Node<T> *parent;
+        size_t index = 0;
+    public:
+        void setParent(Node<T> *parent) {
+            this->parent = parent;
+        }
+
+        void setIndex(size_t index) {
+            this->index = index;
+        }
+
+        Node getValue() {
+            return parent->getChild(index);
+        }
+
+        Node<T> *getParent() const {
+            return parent;
+        }
+
+        int getIndex() const {
+            return index;
+        }
+
+        Iterator operator++( int ) {
+            if (index < parent->getChildren()->size())
+                index++;
+            return *this;
+        }
+
+        inline bool operator==(const Iterator& rhs) {
+            if (this->getParent() == rhs.getParent())
+                if (this->getIndex() == rhs.getIndex())
+                    return true;
+
+            return false;
+        }
+
+        inline bool operator!=(const Iterator& rhs) {
+            return !(*this == rhs);
+        }
+    };
+
 private:
     vector<Node<T>*> *children = new vector<Node<T>*>();
     NodeType type;
     T *data;
+    Iterator iterator;
 
 public:
     // And/Or node
@@ -23,11 +69,31 @@ public:
     {
         this->type = type;
     }
+
     ~Node()
     {
         cout << "Node destructor" << endl;
         for (size_t i = 0; i < children->size(); i++)
             delete children->at(i);
+    }
+
+    Iterator getIterator() {
+        return iterator;
+    }
+
+    Iterator begin() {
+        Iterator begin_it = getChild(0)->getIterator();
+        begin_it.setParent(this);
+        begin_it.setIndex(0);
+        return begin_it;
+    }
+
+    Iterator end() {
+        size_t last = children->size() - 1;
+        Iterator end_it = getChild(last)->getIterator();
+        end_it.setParent(this);
+        end_it.setIndex(last);
+        return end_it;
     }
 
     // Leaf

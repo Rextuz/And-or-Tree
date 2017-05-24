@@ -37,7 +37,9 @@ int main(int argc, char *argv[])
     tree->addLeaf(actions_where, new LexicalPair("C", "At home"));
     tree->addLeaf(actions_where, new LexicalPair("C", "In the forest"));
 
+    // Destructor test pt 1
     actions->deleteChild(0);    // Delete actions_what branch
+    // End of destructor test pt 1
 
     // getDictionary() test
     cout << "\n-----Dictionary-----" << endl;
@@ -58,7 +60,21 @@ int main(int argc, char *argv[])
     qDebug() << "Tree is serialized into file " << filename << endl;
     // End of serializer test
 
+    // Iterator test
+    Node<LexicalPair>::Iterator node_it = tree->begin();
+    Node<LexicalPair>::Iterator node_it2 = tree->end();
+    if (node_it == node_it2) {
+        cout << "Iterators are equal" << endl;
+    } else {
+        cout << "Iterators are not equal" << endl;
+    }
+    while (node_it != node_it2)
+        node_it++;
+    // End of iterator test
+
+    // Destructor test pt 2
     delete tree;
+    // End of destructor test pt 2
 
     // Deserializer test
     QDomDocument *document = new QDomDocument();
