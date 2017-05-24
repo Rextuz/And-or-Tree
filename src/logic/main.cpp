@@ -76,6 +76,16 @@ int main(int argc, char *argv[])
     delete tree;
     // End of destructor test pt 2
 
+    // Allocator test
+    Node<LexicalPair>::Allocator allocator;
+    Node<LexicalPair> *aNode = allocator.allocate(2);
+    Node<LexicalPair> *aNode2 = aNode + Node<LexicalPair>::Allocator::chunk_size;
+    allocator.construct(aNode, t_or);
+    allocator.construct(aNode2, new LexicalPair("A", "Denis"));
+    allocator.destroy(aNode);
+    allocator.destroy(aNode2);
+    allocator.deallocate(aNode, 2);
+    // End of allocator test
     // Deserializer test
     QDomDocument *document = new QDomDocument();
     QFile file(filename);

@@ -57,6 +57,31 @@ public:
         }
     };
 
+    class Allocator {
+    public:
+        static const size_t chunk_size = sizeof(Node<T>);
+
+    public:
+        static Node<T> *allocate(size_t n) {
+            return (Node<T>*) calloc(n, chunk_size);
+        }
+        static void deallocate(Node<T> *node, size_t n) {
+            for (size_t i = 0; i < n; i++)
+                free(node + i*chunk_size);
+        }
+        static void construct(Node<T> *node, NodeType type) {
+            node->type = type;
+        }
+        static void construct(Node<T> *node, T* data) {
+            node->type = t_leaf;
+            node->data = data;
+        }
+        static void destroy(Node<T> *node) {
+            if (node->type == t_leaf)
+                delete node->data;
+        }
+    };
+
 private:
     vector<Node<T>*> *children = new vector<Node<T>*>();
     NodeType type;
