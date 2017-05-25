@@ -14,7 +14,11 @@ JokeTemplate::JokeTemplate(std::string title, std::string text, AndOrTree<Lexica
 
 Content *JokeTemplate::generateContent()
 {
-    return new Content("joke!");
+    if (tree == nullptr)
+        return new Content("joke!");
+
+    string content = ContentTemplate::fillTemplate(text, LexicalPair::getDictionary(tree->getRoot(), time(nullptr)));
+    return new Content(content);
 }
 
 void JokeTemplate::read(const QJsonObject &json, const QString xml_filename)

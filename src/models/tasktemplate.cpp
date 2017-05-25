@@ -14,7 +14,14 @@ TaskTemplate::TaskTemplate(std::string title, std::string text, AndOrTree<Lexica
 
 Content *TaskTemplate::generateContent()
 {
-    return new Content("task!");
+    if (tree == nullptr)
+        return new Content("task!");
+
+    int seed = time(nullptr);
+
+    string content = ContentTemplate::fillTemplate(text, LexicalPair::getDictionary(tree->getRoot(), seed));
+    string generatedAnswer = ContentTemplate::fillTemplate(answer, LexicalPair::getDictionary(tree->getRoot(), seed));
+    return new Content(content + "\n" + generatedAnswer);
 }
 
 void TaskTemplate::read(const QJsonObject &json, const QString xml_filename)
