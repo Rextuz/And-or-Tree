@@ -1,5 +1,6 @@
 #include "joketemplate.h"
 #include "serializer.h"
+#include <time.h>
 
 JokeTemplate::JokeTemplate(std::string title) : ContentTemplate(title)
 {

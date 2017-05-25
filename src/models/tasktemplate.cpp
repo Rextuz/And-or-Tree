@@ -1,5 +1,6 @@
 #include "tasktemplate.h"
 #include "serializer.h"
+#include <time.h>
 
 TaskTemplate::TaskTemplate(std::string title) : ContentTemplate(title)
 {
