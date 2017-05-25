@@ -17,7 +17,7 @@ private:
 public:
     AndOrTree(NodeType type)
     {
-        root = new Node<T>(type);
+        root = new Node<T>(nullptr, type);
     }
     AndOrTree(Node<T> *root)
     {
@@ -30,13 +30,13 @@ public:
 
     Node<T> *addNode(Node<T> *parent, NodeType type)
     {
-        Node<T> *newNode = new Node<T>(type);
+        Node<T> *newNode = new Node<T>(parent, type);
         parent->addChild(newNode);
         return newNode;
     }
     Node<T> *addLeaf(Node<T> *parent, T *data)
     {
-        Node<T> *newNode = new Node<T>(data);
+        Node<T> *newNode = new Node<T>(parent, data);
         parent->addChild(newNode);
         return newNode;
     }

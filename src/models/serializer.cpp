@@ -27,7 +27,7 @@ void serialize(Node<LexicalPair> *node, QDomDocument *document, QDomElement *roo
     }
 }
 
-Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl)
+Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl, Node<LexicalPair> *parent)
 {
     Node<LexicalPair> *current = nullptr;
 
@@ -44,11 +44,11 @@ Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl)
         QString keyAttr = dataEl.attribute("key");
         QString valueAttr = dataEl.attribute("value");
         LexicalPair *data = new LexicalPair(keyAttr.toUtf8().constData(), valueAttr.toUtf8().constData());
-        current = new Node<LexicalPair>(data);
+        current = new Node<LexicalPair>(parent, data);
     } else if (typeAttr == "1")
-        current = new Node<LexicalPair>(t_or);
+        current = new Node<LexicalPair>(parent, t_or);
     else if (typeAttr == "0")
-        current = new Node<LexicalPair>(t_and);
+        current = new Node<LexicalPair>(parent, t_and);
 
     QDomElement children = nodeEl.firstChildElement("children");
     QDomNodeList nodes = children.childNodes();
@@ -56,7 +56,7 @@ Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl)
     {
         QDomNode tmpNode = nodes.item(i);
         QDomElement currentNode = tmpNode.toElement();
-        Node<LexicalPair> *newNode = deserialize(document, &currentNode);
+        Node<LexicalPair> *newNode = deserialize(document, &currentNode, current);
         current->addChild(newNode);
     }
     return current;
