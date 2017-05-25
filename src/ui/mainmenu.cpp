@@ -1,4 +1,5 @@
 #include "mainmenu.h"
+#include "qpainter.h"
 
 MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
 {
@@ -9,14 +10,16 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
     // font
     font.setPointSize(mainScreenSize.height()*0.015);
     font.setFamily("Segoe UI Light");
+    font.setBold(true);
 
-    // label
-    label = new QLabel("Templates");
-    label->setFont(font);
-    label->setMaximumHeight(mainScreenSize.height()*0.04);
-    label->setMinimumHeight(mainScreenSize.height()*0.04);
-    label->setAlignment(Qt::AlignCenter);
-    mainLayout->addWidget(label);
+    //background
+    qDebug()<<this->size();
+    QPixmap bkgnd(":/resource/images/bg.jpg");
+    //bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
+
 
     // buttons
     Storage& storage = Storage::Instance();
@@ -32,7 +35,8 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
             QPushButton *button = new QPushButton(storage.getTemplateName(count - 1));
             connect(button, SIGNAL (released()), parent, SLOT (handleExistTemplateButton()));
             button->setFont(font);
-            button->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.1);
+            button->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.15);
+            button->setStyleSheet("QPushButton {border-image: url(:/resource/images/note.png);}");
             hLayout->addWidget(button);
         }
         if((count == 0) && (j < 4))
@@ -40,7 +44,8 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
             QPushButton *newButton = new QPushButton("+");
             connect(newButton, SIGNAL (released()), parent, SLOT (handleNewTemplateButton()));
             newButton->setFont(font);
-            newButton->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.1);
+            newButton->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.15);
+            newButton->setStyleSheet("QPushButton {border-image: url(:/resource/images/note.png);}");
             hLayout->addWidget(newButton);
         }
         mainLayout->addLayout(hLayout);
