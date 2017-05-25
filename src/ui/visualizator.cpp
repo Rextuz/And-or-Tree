@@ -1,4 +1,5 @@
 #include "visualizator.h"
+#include "customitem.h"
 
 QGraphicsScene* Visualizator::getScene()
 {
@@ -50,9 +51,11 @@ void Visualizator::drawNode(Node<LexicalPair> *tree, int x, int y)
 
         int size = tree->size();
 
+        CustomItem *item = new CustomItem(tree);
+        item->setRect(x,y+70*size,50,50);
+        scene->addItem(item);
         QGraphicsTextItem *plus = scene->addText("+",font);
         plus->setPos(x+15,y+5+70*size);
-        scene->addEllipse(x,y+70*size,50,50);
         scene->addLine(x+25,y+50,x+25,y+70*size);
 
         if(tree->hasChildren())

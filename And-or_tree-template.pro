@@ -45,7 +45,8 @@ HEADERS  += src/ui/mainwindow.h \
     src/models/lexicalpair.h \
     src/ui/savemenu.h \
     src/models/serializer.h \
-    src/ui/visualizator.h
+    src/ui/visualizator.h \
+    src/ui/customitem.h
 
 RESOURCES += \
     res/images.qrc \
