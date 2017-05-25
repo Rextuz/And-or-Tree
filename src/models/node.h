@@ -83,25 +83,13 @@ public:
     };
 
 private:
+    Node<T> *parent;
     vector<Node<T>*> *children = new vector<Node<T>*>();
     NodeType type;
     T *data;
     Iterator iterator;
 
 public:
-    // And/Or node
-    Node(NodeType type)
-    {
-        this->type = type;
-    }
-
-    ~Node()
-    {
-        cout << "Node destructor" << endl;
-        for (size_t i = 0; i < children->size(); i++)
-            delete children->at(i);
-    }
-
     Iterator getIterator() {
         return iterator;
     }
@@ -129,11 +117,27 @@ public:
         return this_size;
     }
 
-    // Leaf
-    Node(T *data)
+    // And/Or node
+    Node(Node<T> *parent, NodeType type)
     {
+        this->parent = parent;
+        this->type = type;
+    }
+
+    // Leaf
+    Node(Node<T> *parent, T *data)
+    {
+        this->parent = parent;
         this->type = t_leaf;
         this->data = data;
+    }
+
+    // Destructor
+    ~Node()
+    {
+        cout << "Node destructor" << endl;
+        for (size_t i = 0; i < children->size(); i++)
+            delete children->at(i);
     }
 
     // Add child to a node
@@ -150,27 +154,53 @@ public:
         delete node;
     }
 
+    // Delete child by pointer
+    void deleteChild(Node<T>* node)
+    {
+        for (size_t i = 0; i < children->size(); i++) {
+            if (children->at(i) == node) {
+                deleteChild(i);
+                return;
+            }
+        }
+    }
+
+    // Delete self
+    void deleteSelf()
+    {
+        parent->deleteChild(this);
+    }
+
     T *getData()
     {
         if (type == t_leaf)
             return data;
         return nullptr;
     }
+
     NodeType getType()
     {
         return type;
     }
+
     bool hasChildren()
     {
         return !children->empty();
     }
+
     vector<Node<T>*> *getChildren()
     {
         return children;
     }
+
     Node<T> *getChild(int index)
     {
         return children->at(index);
+    }
+
+    Node<T> *getParent()
+    {
+        return parent;
     }
 };
 

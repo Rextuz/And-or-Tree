@@ -8,7 +8,7 @@
 #include "lexicalpair.h"
 
 void serialize(Node<LexicalPair> *node, QDomDocument *document, QDomElement *root = nullptr);
-Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl = nullptr);
+Node<LexicalPair> *deserialize(QDomDocument *document, QDomElement *_nodeEl = nullptr, Node<LexicalPair> *parent = nullptr);
 AndOrTree<LexicalPair> *readTree(const QString filename);
 void writeTree(AndOrTree<LexicalPair> *tree, const QString filename);
 

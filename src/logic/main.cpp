@@ -47,8 +47,9 @@ tree->addLeaf(characters, new LexicalPair("A", "Efim"));
 // Populate with actions
 tree->addLeaf(actions_what, new LexicalPair("B", "Dance"));
 tree->addLeaf(actions_what, new LexicalPair("B", "Sing"));
-tree->addLeaf(actions_where, new LexicalPair("C", "At home"));
+Node<LexicalPair> *node = tree->addLeaf(actions_where, new LexicalPair("C", "At home"));
 tree->addLeaf(actions_where, new LexicalPair("C", "In the forest"));
+node->deleteSelf();
 
 cout << "Tree size = " << tree->size() << endl;
 
