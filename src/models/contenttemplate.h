@@ -4,10 +4,16 @@
 #include "content.h"
 #include "andortree.h"
 #include "lexicalpair.h"
-#include <string>
+
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QFile>
+
+#include <string>
+using std::string;
+
+#include <map>
+using std::map;
 
 // contains a template of text and a tree
 class ContentTemplate
@@ -27,6 +33,8 @@ public:
 
     virtual void read(const QJsonObject &json, const QString xml_filename) = 0;
     virtual void write(QJsonObject &json, const QString xml_filename) const = 0;
+
+    static string fillTemplate(string text, map<string, string> dictionary);
 
 protected:
     const int uid;
