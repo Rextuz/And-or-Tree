@@ -15,6 +15,8 @@ void Storage::reloadList()
         QFile::copy(":/resource/templates/Chest.json", "templates/Chest.json");
         QFile::copy(":/resource/templates/Apples.xml", "templates/Apples.xml");
         QFile::copy(":/resource/templates/Chest.xml", "templates/Chest.xml");
+        QFile::copy(":/resource/templates/Дорога домой.json", "templates/Дорога домой.json");
+        QFile::copy(":/resource/templates/Дорога домой.xml", "templates/Дорога домой.xml");
     }
 
     dir.cd("templates");

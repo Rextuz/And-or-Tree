@@ -1,0 +1,132 @@
+<node type="0">
+ <children>
+  <node type="1">
+   <children>
+	<node type="0">
+	<children>
+		<node type="2">
+		 <data key="Q" value="4"/>
+		</node>
+		<node type="2">
+		 <data key="W" value="12"/>
+		</node>
+		<node type="2">
+		 <data key="E" value="2"/>
+		</node>
+		<node type="2">
+		 <data key="R" value="6"/>
+		</node>
+		<node type="2">
+		 <data key="T" value="10"/>
+		</node>
+		<node type="1">
+		 <children>
+			 <node type="2">
+				<data key="Y" value="велосипеде"/>
+			</node>
+			<node type="2">
+				<data key="Y" value="самокате"/>
+			</node>
+			<node type="2">
+				<data key="Y" value="гироскутере"/>
+			</node>
+		 </children>
+		</node>
+    </children>
+	</node>
+	<node type="0">
+	<children>
+		<node type="2">
+		 <data key="Q" value="3"/>
+		</node>
+		<node type="2">
+		 <data key="W" value="40"/>
+		</node>
+		<node type="2">
+		 <data key="E" value="4"/>
+		</node>
+		<node type="2">
+		 <data key="R" value="5"/>
+		</node>
+		<node type="2">
+		 <data key="T" value="20"/>
+		</node>
+		<node type="1">
+		 <children>
+			 <node type="2">
+				<data key="Y" value="тракторе"/>
+			</node>
+			<node type="2">
+				<data key="Y" value="коне"/>
+			</node>
+		 </children>
+		</node>
+    </children>
+	</node>
+	<node type="0">
+	<children>
+		<node type="2">
+		 <data key="Q" value="24"/>
+		</node>
+		<node type="2">
+		 <data key="W" value="9"/>
+		</node>
+		<node type="2">
+		 <data key="E" value="6"/>
+		</node>
+		<node type="2">
+		 <data key="R" value="4"/>
+		</node>
+		<node type="2">
+		 <data key="T" value="8"/>
+		</node>
+		<node type="1">
+		 <children>
+			 <node type="2">
+				<data key="Y" value="верблюде"/>
+			</node>
+		 </children>
+		</node>
+    </children>
+	</node>
+   </children>
+  </node>
+  <node type="1">
+   <children>
+   <node type="0">
+   <children>
+    <node type="2">
+     <data key="Z" value="Макс"/>
+    </node>
+    <node type="2">
+     <data key="X" value="Максу"/>
+    </node>
+   </children>
+  </node>
+  <node type="0">
+   <children>
+    <node type="2">
+     <data key="Z" value="Ефим"/>
+    </node>
+    <node type="2">
+     <data key="X" value="Ефиму"/>
+    </node>
+   </children>
+  </node>
+   </children>
+  </node>
+ </children>
+   <node type="1">
+   <children>
+    <node type="2">
+     <data key="A" value="домой"/>
+    </node>
+    <node type="2">
+     <data key="A" value="в Африку"/>
+    </node>
+    <node type="2">
+     <data key="A" value="в Ионотеку"/>
+   </children>
+  </node>
+ </children>
+</node>
