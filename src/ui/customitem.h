@@ -20,7 +20,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         TemplateMenu::handleCustomItem();
-        qDebug() << "Custom item clicked.";
+        qDebug() << "Custom item clicked." << event;
     }
 
 private:
