@@ -69,13 +69,8 @@ void Visualizator::drawNode(Node<LexicalPair> *tree, int x, int y)
             }
             else
             {
-                int num = 0;
-                if(tree->getChild(i)->getType() == t_leaf)
-                {
-                    num = i-1;
-                }
-                scene->addLine(x+25,y+25+70*(size+1+num),x+70,y+25+70*(size+1+num));
-                this->drawNode(tree->getChild(i),x+70,y+70*(size+1+num));
+                scene->addLine(x+25,y+25+70*(size+i),x+70,y+25+70*(size+i));
+                this->drawNode(tree->getChild(i),x+70,y+70*(size+i));
             }
             size += tree->getChild(i)->size();
         }
