@@ -7,7 +7,7 @@ ContentTemplate::ContentTemplate(std::string title) : uid(newUID++)
 {
     this->title = title;
     text = "put text here";
-    tree = NULL; // здесь нужно будет создавать изначальное дерево
+    tree = new AndOrTree<LexicalPair>(t_and);
 }
 
 ContentTemplate::ContentTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree) : uid(newUID++)
