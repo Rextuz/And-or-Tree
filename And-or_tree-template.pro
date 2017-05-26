@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui xml
+QT       += core gui xml testlib
 
 QMAKE_CXXFLAGS += -std=c++0x
 
@@ -27,7 +27,8 @@ SOURCES += src/logic/main.cpp \
     src/logic/tasktemplatecreator.cpp \
     src/ui/savemenu.cpp \
     src/models/serializer.cpp \
-    src/ui/visualizator.cpp
+    src/ui/visualizator.cpp \
+    src/logic/test_andortree.cpp
 
 HEADERS  += src/ui/mainwindow.h \
     src/models/andortree.h \
@@ -46,7 +47,8 @@ HEADERS  += src/ui/mainwindow.h \
     src/ui/savemenu.h \
     src/models/serializer.h \
     src/ui/visualizator.h \
-    src/ui/customitem.h
+    src/ui/customitem.h \
+    src/logic/test_andortree.h
 
 RESOURCES += \
     res/images.qrc \
