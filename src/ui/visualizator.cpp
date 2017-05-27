@@ -50,7 +50,8 @@ void Visualizator::drawNode(Node<LexicalPair> *tree, int x, int y)
         scene->addEllipse(x,y,50,50);
 
         int size = tree->size();
-
+        if(size == 0)
+            size = 1;
         CustomItem *item = new CustomItem(tree);
         item->setRect(x,y+70*size,50,50);
         scene->addItem(item);
@@ -63,8 +64,7 @@ void Visualizator::drawNode(Node<LexicalPair> *tree, int x, int y)
             scene->addLine(x+50,y+25,x+70,y+25);
         }
 
-        size = 0;
-        for (unsigned int i = 0; i < tree->getChildren()->size(); i++)
+        for (unsigned int i = 0, size = 0; i < tree->getChildren()->size(); i++)
         {
             if(i == 0)
             {
