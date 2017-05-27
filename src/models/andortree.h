@@ -19,6 +19,7 @@ public:
     {
         root = new Node<T>(nullptr, type);
     }
+
     AndOrTree(Node<T> *root)
     {
         this->root = root;
@@ -34,6 +35,7 @@ public:
         parent->addChild(newNode);
         return newNode;
     }
+
     Node<T> *addLeaf(Node<T> *parent, T *data)
     {
         Node<T> *newNode = new Node<T>(parent, data);
@@ -54,6 +56,7 @@ public:
     {
         return root;
     }
+
     // Tree destructor
     ~AndOrTree()
     {

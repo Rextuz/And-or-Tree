@@ -3,5 +3,7 @@
         <file>images/logo.png</file>
         <file>images/tree.jpg</file>
         <file>images/gear.jpg</file>
+        <file>images/bg.jpg</file>
+        <file>images/note.png</file>
     </qresource>
 </RCC>

@@ -1,6 +1,8 @@
 #include "src/ui/mainwindow.h"
 #include <QApplication>
 #include <time.h>   // for random
+#include <QTest>
+#include "test_andortree.h"
 
 #include <iostream> // for output
 using std::cout;
@@ -20,6 +22,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
+
+    /* Unit testing */
+    QTest::qExec(new UTestTree, argc, argv);
 
     return a.exec();
 }
