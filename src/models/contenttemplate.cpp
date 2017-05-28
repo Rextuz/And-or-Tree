@@ -1,16 +1,13 @@
 #include "contenttemplate.h"
 
-// init static variable
-int ContentTemplate::newUID = 0;
-
-ContentTemplate::ContentTemplate(std::string title) : uid(newUID++)
+ContentTemplate::ContentTemplate(std::string title)
 {
     this->title = title;
     text = "put text here";
     tree = new AndOrTree<LexicalPair>(t_and);
 }
 
-ContentTemplate::ContentTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree) : uid(newUID++)
+ContentTemplate::ContentTemplate(std::string title, std::string text, AndOrTree<LexicalPair> *tree)
 {
     this->title = title;
     this->text = text;
@@ -35,11 +32,6 @@ std::string ContentTemplate::getText() const
 AndOrTree<LexicalPair> *ContentTemplate::getTree() const
 {
     return tree;
-}
-
-int ContentTemplate::getUid() const
-{
-    return uid;
 }
 
 void ContentTemplate::setText(const std::string &value)

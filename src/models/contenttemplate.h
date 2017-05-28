@@ -27,7 +27,6 @@ public:
     std::string getText() const;
     void setText(const std::string &value);
     AndOrTree<LexicalPair> *getTree() const;
-    int getUid() const;
 
     virtual Content* generateContent() = 0;
 
@@ -37,13 +36,11 @@ public:
     static string fillTemplate(string text, map<string, string> dictionary);
 
 protected:
-    const int uid;
     std::string title;
     std::string text;
     AndOrTree<LexicalPair> *tree;
 
 private:
-    static int newUID;
     ContentTemplate(ContentTemplate const&);
     ContentTemplate& operator= (ContentTemplate const&);
 
