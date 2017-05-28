@@ -35,7 +35,7 @@ void Storage::reloadList()
 }
 
 // return NULL if couldn't load
-ContentTemplate* Storage::loadTemplate(QString name)
+ContentTemplate* Storage::loadTemplateByName(QString name)
 {
     QString xml_name;
     name.prepend("templates/");

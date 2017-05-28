@@ -23,7 +23,7 @@ public:
     int getSize();
 
     bool deleteTemplate(QString name);
-    ContentTemplate* loadTemplate(QString name);
+    ContentTemplate* loadTemplateByName(QString name);
     bool saveTemplate(ContentTemplate* contentTemplate) const;
 
 private:

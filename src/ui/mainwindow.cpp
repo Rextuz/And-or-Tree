@@ -31,7 +31,7 @@ void MainWindow::handleExistTemplateButton()
 
     // try to load template
     Storage& storage = Storage::Instance();
-    ContentTemplate* data = storage.loadTemplate(title);
+    ContentTemplate* data = storage.loadTemplateByName(title);
     if(data != NULL){
         templateMenu = new TemplateMenu(this, data);
         setCentralWidget(templateMenu);
@@ -51,7 +51,7 @@ void MainWindow::handleNewTemplateButton(QString name, MainWindow::Type type)
     }
     else{
         Storage& storage = Storage::Instance();
-        if(storage.loadTemplate(name) != NULL){
+        if(storage.loadTemplateByName(name) != NULL){
             messageBox.setText("Template with this name already exists!");
             messageBox.exec();
             handleNewTemplateButton();
