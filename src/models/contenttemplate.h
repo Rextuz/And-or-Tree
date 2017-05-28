@@ -40,6 +40,8 @@ protected:
     std::string text;
     AndOrTree<LexicalPair> *tree;
 
+    readCommonData(const QJsonObject &json, const QString xml_filename);
+
 private:
     ContentTemplate(ContentTemplate const&);
     ContentTemplate& operator= (ContentTemplate const&);

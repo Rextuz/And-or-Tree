@@ -24,11 +24,7 @@ Content *JokeTemplate::generateContent()
 
 void JokeTemplate::read(const QJsonObject &json, const QString xml_filename)
 {
-    title = json["title"].toString().toUtf8().constData();
-    text = json["text"].toString().toUtf8().constData();
-    QJsonObject treeObject = json["tree"].toObject();
-    delete tree;
-    tree = readTree(xml_filename);
+    readCommonData(json, xml_filename);
 }
 
 void JokeTemplate::write(QJsonObject &json, const QString xml_filename) const

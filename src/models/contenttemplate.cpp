@@ -1,4 +1,5 @@
 #include "contenttemplate.h"
+#include "serializer.h"
 
 ContentTemplate::ContentTemplate(std::string title)
 {
@@ -58,4 +59,12 @@ string ContentTemplate::fillTemplate(string text, map<string, string> dictionary
     }
 
     return filledText = textUtf8.toStdString();
+}
+
+ContentTemplate::readCommonData(const QJsonObject &json, const QString xml_filename)
+{
+    title = json["title"].toString().toUtf8().constData();
+    text = json["text"].toString().toUtf8().constData();
+    delete tree;
+    tree = readTree(xml_filename);
 }
