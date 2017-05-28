@@ -27,11 +27,6 @@ void Storage::reloadList()
     for(int i = 0; i < list.size(); ++i) {
         templates.push_back(list.at(i).fileName().split(".").first());
     }
-
-    std::cout << "Templates:" << std::endl;
-    for(unsigned int i = 0; i < templates.size(); ++i) {
-        qDebug() << templates[i];
-    }
 }
 
 // return NULL if couldn't load

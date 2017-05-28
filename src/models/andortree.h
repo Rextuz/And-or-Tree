@@ -60,7 +60,6 @@ public:
     // Tree destructor
     ~AndOrTree()
     {
-        cout << "Tree destructor" << endl;
         delete root;
     }
 };

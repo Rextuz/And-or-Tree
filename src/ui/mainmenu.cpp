@@ -13,7 +13,6 @@ MainMenu::MainMenu(QWidget *parent) : QWidget(parent)
     font.setBold(true);
 
     //background
-    qDebug()<<this->size();
     QPixmap bkgnd(":/resource/images/bg.jpg");
     //bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
