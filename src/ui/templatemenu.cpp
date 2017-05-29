@@ -1,4 +1,5 @@
 #include "templatemenu.h"
+#include "customitem.h"
 
 TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : QWidget(parent)
 {
@@ -37,11 +38,12 @@ TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : 
     genButton = new QPushButton;
     genButton->setIcon(QIcon(":/resource/images/gear.jpg"));
     genButton->setIconSize(QSize(mainScreenSize.height()*0.1, mainScreenSize.height()*0.1));
-    connect(genButton, SIGNAL(clicked(bool)), this, SLOT(handleGenerateAction()));
+    connect(genButton, SIGNAL(released()), this, SLOT(handleGenerateAction()));
 
     // tree visualization
-    Visualizator *visualizator = new Visualizator(contentTemplate->getTree());
-    QGraphicsView *view = visualizator->getView();
+    scene = new QGraphicsScene;
+    view = new QGraphicsView;
+    drawTree(contentTemplate->getTree()->getRoot(),0,0);
 
     // layout
     hLayout = new QHBoxLayout;
@@ -129,4 +131,188 @@ void TemplateMenu::handleGenerateAction()
     contentWindow->setWindowTitle("Generated content");
     contentWindow->setLayout(mainLayout);
     contentWindow->show();
+}
+
+void TemplateMenu::handleUpdateAction()
+{
+    scene = new QGraphicsScene;
+    drawTree(contentTemplate->getTree()->getRoot(),0,0);
+}
+
+void TemplateMenu::drawTree(Node<LexicalPair> *tree, int x, int y)
+{
+    if(tree->getType() == t_leaf)
+    {
+        QString str = QString::fromStdString("(" + tree->getData()->getKey()+ ")" + " " + tree->getData()->getValue());
+        if(str.length() > 20)
+        {
+            str.truncate(20);
+            str.append("...");
+        }
+        QGraphicsTextItem *leafItem = scene->addText(str,font);
+        leafItem->setPos(x+5,y+5);
+        scene->addRect(x,y,200,50);
+    }
+    else
+    {
+        if(tree->getType() == t_and)
+        {
+            QGraphicsTextItem *item = scene->addText("and",font);
+            item->setPos(x+5,y+5);
+        }
+        else
+        {
+            QGraphicsTextItem *item = scene->addText("or",font);
+            item->setPos(x+10,y+5);
+        }
+        scene->addEllipse(x,y,50,50);
+
+        int size = tree->size();
+        if(size == 0)
+            size = 1;
+        CustomItem *item = new CustomItem(tree, this);
+        item->setRect(x,y+70*size,50,50);
+        scene->addItem(item);
+        QGraphicsTextItem *plus = scene->addText("+",font);
+        plus->setPos(x+15,y+5+70*size);
+        scene->addLine(x+25,y+50,x+25,y+70*size);
+
+        if(tree->hasChildren())
+        {
+            scene->addLine(x+50,y+25,x+70,y+25);
+        }
+
+        for (unsigned int i = 0, size = 0; i < tree->getChildren()->size(); i++)
+        {
+            if(i == 0)
+            {
+                drawTree(tree->getChild(i),x+70,y);
+            }
+            else
+            {
+                scene->addLine(x+25,y+25+70*(size+i),x+70,y+25+70*(size+i));
+                drawTree(tree->getChild(i),x+70,y+70*(size+i));
+            }
+            size += tree->getChild(i)->size();
+        }
+    }
+
+    view->setScene(scene);
+}
+
+void TemplateMenu::handleCustomItem(Node<LexicalPair> *tree)
+{
+    this->tree = tree;
+    QPushButton *buttonAnd = new QPushButton("and");
+    connect(buttonAnd, SIGNAL (released()), this, SLOT (handleAndButton()));
+    buttonAnd->setFont(font);
+    buttonAnd->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.04);
+    QPushButton *buttonOr = new QPushButton("or");
+    connect(buttonOr, SIGNAL (released()), this, SLOT (handleOrButton()));
+    buttonOr->setFont(font);
+    buttonOr->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.04);
+    QPushButton *buttonLeaf = new QPushButton("leaf");
+    connect(buttonLeaf, SIGNAL (released()), this, SLOT (handleLeafButton()));
+    buttonLeaf->setFont(font);
+    buttonLeaf->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.04);
+    QPushButton *buttonDelete = new QPushButton("delete");
+    connect(buttonDelete, SIGNAL (released()), this, SLOT (handleDeleteButton()));
+    buttonDelete->setFont(font);
+    buttonDelete->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.04);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(buttonAnd);
+    layout->setAlignment(buttonAnd, Qt::AlignCenter);
+    layout->addWidget(buttonOr);
+    layout->setAlignment(buttonOr, Qt::AlignCenter);
+    layout->addWidget(buttonLeaf);
+    layout->setAlignment(buttonLeaf, Qt::AlignCenter);
+    layout->addWidget(buttonDelete);
+    layout->setAlignment(buttonDelete, Qt::AlignCenter);
+
+    customItemWindow = new QWidget(0);
+    customItemWindow->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.2);
+    customItemWindow->setWindowModality(Qt::ApplicationModal);
+    customItemWindow->setWindowIcon(QIcon(":/resource/images/tree.jpg"));
+    customItemWindow->setWindowTitle("Node menu");
+    customItemWindow->setLayout(layout);
+    customItemWindow->show();
+}
+
+void TemplateMenu::handleAndButton()
+{
+    contentTemplate->getTree()->addNode(tree, t_and);
+    handleUpdateAction();
+    customItemWindow->close();
+}
+
+void TemplateMenu::handleOrButton()
+{
+    contentTemplate->getTree()->addNode(tree, t_or);
+    handleUpdateAction();
+    customItemWindow->close();
+}
+
+void TemplateMenu::handleLeafButton()
+{
+    customItemWindow->close();
+
+    QLabel *keyLabel = new QLabel("Enter key:");
+    keyLabel->setFont(font);
+    QLabel *valueLabel = new QLabel("Enter value:");
+    valueLabel->setFont(font);
+
+    key = new QTextEdit;
+    key->setFont(font);
+    key->setFixedSize(mainScreenSize.width()*0.05, mainScreenSize.height()*0.04);
+    value = new QTextEdit;
+    value->setFont(font);
+    value->setFixedSize(mainScreenSize.width()*0.2, mainScreenSize.height()*0.04);
+
+    QPushButton *button = new QPushButton("add");
+    connect(button, SIGNAL (released()), this, SLOT (handleAddButton()));
+    button->setFont(font);
+    button->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.04);
+
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    QVBoxLayout *vLayout = new QVBoxLayout;
+    vLayout->addWidget(keyLabel);
+    vLayout->setAlignment(keyLabel, Qt::AlignCenter);
+    vLayout->addWidget(key);
+    vLayout->setAlignment(key, Qt::AlignCenter);
+    hLayout->addLayout(vLayout);
+
+    vLayout = new QVBoxLayout;
+    vLayout->addWidget(valueLabel);
+    vLayout->setAlignment(valueLabel, Qt::AlignCenter);
+    vLayout->addWidget(value);
+    vLayout->setAlignment(value, Qt::AlignCenter);
+    hLayout->addLayout(vLayout);
+
+    vLayout = new QVBoxLayout;
+    vLayout->addLayout(hLayout);
+    vLayout->addWidget(button);
+    vLayout->setAlignment(button, Qt::AlignRight);
+
+    leafWindow = new QWidget(0);
+    leafWindow->setFixedSize(mainScreenSize.width()*0.3, mainScreenSize.height()*0.2);
+    leafWindow->setWindowModality(Qt::ApplicationModal);
+    leafWindow->setWindowIcon(QIcon(":/resource/images/tree.jpg"));
+    leafWindow->setWindowTitle("Leaf menu");
+    leafWindow->setLayout(vLayout);
+    leafWindow->show();
+}
+
+void TemplateMenu::handleAddButton()
+{
+    contentTemplate->getTree()->addLeaf(tree, new LexicalPair(key->toPlainText().toUtf8().constData(),value->toPlainText().toUtf8().constData()));
+    handleUpdateAction();
+    leafWindow->close();
+}
+
+void TemplateMenu::handleDeleteButton()
+{
+    tree->deleteSelf();
+    handleUpdateAction();
+    customItemWindow->close();
 }

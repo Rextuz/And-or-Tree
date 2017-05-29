@@ -27,7 +27,6 @@ SOURCES += src/logic/main.cpp \
     src/logic/tasktemplatecreator.cpp \
     src/ui/savemenu.cpp \
     src/models/serializer.cpp \
-    src/ui/visualizator.cpp \
     src/logic/test_andortree.cpp
 
 HEADERS  += src/ui/mainwindow.h \
@@ -46,7 +45,6 @@ HEADERS  += src/ui/mainwindow.h \
     src/models/lexicalpair.h \
     src/ui/savemenu.h \
     src/models/serializer.h \
-    src/ui/visualizator.h \
     src/ui/customitem.h \
     src/logic/test_andortree.h
 

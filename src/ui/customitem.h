@@ -11,20 +11,22 @@
 class CustomItem : public QGraphicsRectItem
 {
 public:
-    CustomItem(Node<LexicalPair> *tree)
+    CustomItem(Node<LexicalPair> *tree, TemplateMenu *templateMenu)
     {
         this->tree = tree;
+        this->templateMenu = templateMenu;
     }
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
-        TemplateMenu::handleCustomItem();
-        qDebug() << "Custom item clicked." << event;
+        templateMenu->handleCustomItem(tree);
+        QGraphicsItem::mousePressEvent(event);
     }
 
 private:
     Node<LexicalPair> *tree;
+    TemplateMenu *templateMenu;
 };
 
 #endif // CUSTOMITEM_H
