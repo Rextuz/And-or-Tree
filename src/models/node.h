@@ -182,6 +182,12 @@ public:
         return type;
     }
 
+    void setType(NodeType type)
+    {
+        if (this->type != t_leaf)
+            this->type = type;
+    }
+
     bool hasChildren()
     {
         return !children->empty();

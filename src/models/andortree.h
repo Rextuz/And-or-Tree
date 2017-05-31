@@ -57,6 +57,11 @@ public:
         return root;
     }
 
+    void setRootType(NodeType type)
+    {
+        root->setType(type);
+    }
+
     // Tree destructor
     ~AndOrTree()
     {
