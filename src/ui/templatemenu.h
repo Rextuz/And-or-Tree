@@ -34,6 +34,7 @@ private slots:
     void handleDeleteAction();
     void handleGenerateAction();
     void handleUpdateAction();
+    void handleSwitchButton();
     void handleAndButton();
     void handleOrButton();
     void handleLeafButton();

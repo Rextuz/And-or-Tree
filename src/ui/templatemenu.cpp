@@ -203,6 +203,10 @@ void TemplateMenu::drawTree(Node<LexicalPair> *tree, int x, int y)
 void TemplateMenu::handleCustomItem(Node<LexicalPair> *tree)
 {
     this->tree = tree;
+    QPushButton *buttonSwitch = new QPushButton("switch");
+    connect(buttonSwitch, SIGNAL (released()), this, SLOT (handleSwitchButton()));
+    buttonSwitch->setFont(font);
+    buttonSwitch->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.04);
     QPushButton *buttonAnd = new QPushButton("and");
     connect(buttonAnd, SIGNAL (released()), this, SLOT (handleAndButton()));
     buttonAnd->setFont(font);
@@ -221,6 +225,8 @@ void TemplateMenu::handleCustomItem(Node<LexicalPair> *tree)
     buttonDelete->setFixedSize(mainScreenSize.width()*0.06, mainScreenSize.height()*0.04);
 
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(buttonSwitch);
+    layout->setAlignment(buttonSwitch, Qt::AlignCenter);
     layout->addWidget(buttonAnd);
     layout->setAlignment(buttonAnd, Qt::AlignCenter);
     layout->addWidget(buttonOr);
@@ -231,12 +237,26 @@ void TemplateMenu::handleCustomItem(Node<LexicalPair> *tree)
     layout->setAlignment(buttonDelete, Qt::AlignCenter);
 
     customItemWindow = new QWidget(0);
-    customItemWindow->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.2);
+    customItemWindow->setFixedSize(mainScreenSize.width()*0.15, mainScreenSize.height()*0.25);
     customItemWindow->setWindowModality(Qt::ApplicationModal);
     customItemWindow->setWindowIcon(QIcon(":/resource/images/tree.jpg"));
     customItemWindow->setWindowTitle("Node menu");
     customItemWindow->setLayout(layout);
     customItemWindow->show();
+}
+
+void TemplateMenu::handleSwitchButton()
+{
+    if(tree->getType() == t_and)
+    {
+        tree->setType(t_or);
+    }
+    else
+    {
+        tree->setType(t_and);
+    }
+    handleUpdateAction();
+    customItemWindow->close();
 }
 
 void TemplateMenu::handleAndButton()
@@ -312,7 +332,10 @@ void TemplateMenu::handleAddButton()
 
 void TemplateMenu::handleDeleteButton()
 {
-    tree->deleteSelf();
-    handleUpdateAction();
+    if(tree->getParent() != nullptr)
+    {
+        tree->deleteSelf();
+        handleUpdateAction();
+    }
     customItemWindow->close();
 }
