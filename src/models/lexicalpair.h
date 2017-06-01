@@ -13,6 +13,7 @@ using std::vector;
 using std::map;
 using std::make_pair;
 
+namespace kkcs {
 class LexicalPair
 {
 private:
@@ -76,5 +77,6 @@ public:
         return dictionary;
     }
 };
+}
 
 #endif // LEXICALPAIR_H

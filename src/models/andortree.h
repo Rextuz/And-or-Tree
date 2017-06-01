@@ -6,6 +6,7 @@
 #include "node.h"
 
 // Polymorphic tree container
+namespace kkcs {
 template <class T>
 class AndOrTree
 {
@@ -68,5 +69,6 @@ public:
         delete root;
     }
 };
+}
 
 #endif // ANDORTREE_H

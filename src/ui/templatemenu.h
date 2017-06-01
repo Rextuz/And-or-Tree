@@ -20,6 +20,12 @@
 #include "src/logic/storage.h"
 #include "src/models/contenttemplate.h"
 
+#include "src/models/node.h"
+using kkcs::Node;
+
+#include "src/models/lexicalpair.h"
+using kkcs::LexicalPair;
+
 class TemplateMenu : public QWidget
 {
     Q_OBJECT

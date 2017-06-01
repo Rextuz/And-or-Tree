@@ -7,7 +7,7 @@ using std::vector;
 #include <iostream>
 using std::cout;
 using std::endl;
-
+namespace kkcs {
 enum NodeType { t_and, t_or, t_leaf };
 
 template <class T>
@@ -208,5 +208,6 @@ public:
         return parent;
     }
 };
+}
 
 #endif // NODE_H

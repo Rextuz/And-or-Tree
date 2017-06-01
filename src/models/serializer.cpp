@@ -1,5 +1,9 @@
 #include "serializer.h"
 
+using kkcs::t_leaf;
+using kkcs::t_and;
+using kkcs::t_or;
+
 void serialize(Node<LexicalPair> *node, QDomDocument *document, QDomElement *root)
 {
     LexicalPair *data = node->getData();

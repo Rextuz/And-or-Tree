@@ -1,6 +1,10 @@
 #include "templatemenu.h"
 #include "customitem.h"
 
+using kkcs::t_leaf;
+using kkcs::t_and;
+using kkcs::t_or;
+
 TemplateMenu::TemplateMenu(QWidget *parent, ContentTemplate* contentTemplate) : QWidget(parent)
 {
     mainScreenSize = desktopWidget.screenGeometry(desktopWidget.primaryScreen());

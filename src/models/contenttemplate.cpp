@@ -1,6 +1,13 @@
 #include "contenttemplate.h"
 #include "serializer.h"
 
+#include "andortree.h"
+using kkcs::AndOrTree;
+
+#include "node.h"
+using kkcs::Node;
+using kkcs::t_and;
+
 ContentTemplate::ContentTemplate(std::string title)
 {
     this->title = title;

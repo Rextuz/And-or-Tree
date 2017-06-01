@@ -1,7 +1,16 @@
 #include <QtTest>
 #include "test_andortree.h"
 #include "src/models/andortree.h"
+using kkcs::AndOrTree;
+
 #include "src/models/lexicalpair.h"
+using kkcs::LexicalPair;
+
+#include "src/models/node.h"
+using kkcs::Node;
+using kkcs::t_leaf;
+using kkcs::t_and;
+using kkcs::t_or;
 
 UTestTree::UTestTree(QObject *parent) : QObject(parent)
 {

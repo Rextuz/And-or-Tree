@@ -3,7 +3,10 @@
 
 #include "content.h"
 #include "andortree.h"
+using kkcs::AndOrTree;
+
 #include "lexicalpair.h"
+using kkcs::LexicalPair;
 
 #include <QJsonObject>
 #include <QJsonDocument>
