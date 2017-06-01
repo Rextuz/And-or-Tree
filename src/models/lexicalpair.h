@@ -20,7 +20,7 @@ private:
     string key;
     string value;
 
-    static void generateDictionary(Node<LexicalPair> *tree, unsigned int seed, map<string, string> *dictionary)
+    static void generateDictionary(Node<LexicalPair> *tree, map<string, string> *dictionary)
     {
         // Choose your path
         switch (tree->getType()) {
@@ -28,16 +28,15 @@ private:
         {
             if (tree->hasChildren())
             {
-                srand(seed);    // randomize stuff
                 int path = rand() % tree->getChildren()->size();
-                generateDictionary(tree->getChild(path), seed, dictionary);
+                generateDictionary(tree->getChild(path), dictionary);
             }
             break;
         }
         case t_and:     // We will check out each path
         {
             for (unsigned int i = 0; i < tree->getChildren()->size(); i++)
-                generateDictionary(tree->getChild(i), seed, dictionary);
+                generateDictionary(tree->getChild(i), dictionary);
 
             break;
         }
@@ -73,7 +72,8 @@ public:
     static map<string, string> getDictionary(Node<LexicalPair> *tree, unsigned int seed) {
         map<string, string> dictionary;
 
-        generateDictionary(tree, seed, &dictionary);
+        srand(seed);
+        generateDictionary(tree, &dictionary);
         return dictionary;
     }
 };
