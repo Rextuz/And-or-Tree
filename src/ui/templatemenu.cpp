@@ -171,15 +171,12 @@ void TemplateMenu::drawTree(Node<LexicalPair> *tree, int x, int y)
         }
         scene->addEllipse(x,y,50,50);
 
-        int size = tree->size();
-        if(size == 0)
-            size = 1;
         CustomItem *item = new CustomItem(tree, this);
-        item->setRect(x,y+70*size,50,50);
+        item->setRect(x-25,y+45,30,30);
         scene->addItem(item);
         QGraphicsTextItem *plus = scene->addText("+",font);
-        plus->setPos(x+15,y+5+70*size);
-        scene->addLine(x+25,y+50,x+25,y+70*size);
+        plus->setPos(x-20,y+40);
+        scene->addLine(x+7,y+43,x+5,y+45);
 
         if(tree->hasChildren())
         {
@@ -194,6 +191,7 @@ void TemplateMenu::drawTree(Node<LexicalPair> *tree, int x, int y)
             }
             else
             {
+                scene->addLine(x+25,y+50,x+25,y+25+70*(size+i));
                 scene->addLine(x+25,y+25+70*(size+i),x+70,y+25+70*(size+i));
                 drawTree(tree->getChild(i),x+70,y+70*(size+i));
             }
