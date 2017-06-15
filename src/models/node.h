@@ -127,6 +127,7 @@ public:
     {
         this->parent = parent;
         this->type = type;
+        this->weight = 1;
     }
 
     Node(Node<T> *parent, NodeType type, int weight)
@@ -142,6 +143,8 @@ public:
         this->parent = parent;
         this->type = t_leaf;
         this->data = data;
+        //random weight
+        this->weight = rand()%10;
     }
 
     Node(Node<T> *parent, T *data, int weight)
@@ -195,6 +198,11 @@ public:
         if (type == t_leaf)
             return data;
         return nullptr;
+    }
+
+    int getWeight()
+    {
+        return weight;
     }
 
     NodeType getType()
