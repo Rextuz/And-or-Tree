@@ -122,7 +122,6 @@ public:
     {
         this->parent = parent;
         this->type = type;
-        this->weight = 1;
     }
 
     // Leaf
@@ -131,8 +130,6 @@ public:
         this->parent = parent;
         this->type = t_leaf;
         this->data = data;
-        //random weight
-        this->weight = rand()%10;
     }
 
     // Destructor
@@ -178,11 +175,6 @@ public:
         if (type == t_leaf)
             return data;
         return nullptr;
-    }
-
-    int getWeight()
-    {
-        return weight;
     }
 
     NodeType getType()

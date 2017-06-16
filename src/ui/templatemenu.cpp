@@ -145,11 +145,9 @@ void TemplateMenu::handleUpdateAction()
 
 void TemplateMenu::drawTree(Node<LexicalPair> *tree, int x, int y)
 {
-    int weight = tree->getWeight();
-    string s_weight = std::to_string(weight);
     if(tree->getType() == t_leaf)
     {
-        QString str = QString::fromStdString("(" + tree->getData()->getKey()+ ")" + " " + tree->getData()->getValue() + " (weight="+s_weight+")");
+        QString str = QString::fromStdString("(" + tree->getData()->getKey()+ ")" + " " + tree->getData()->getValue());
         if(str.length() > 20)
         {
             str.truncate(20);
@@ -163,12 +161,12 @@ void TemplateMenu::drawTree(Node<LexicalPair> *tree, int x, int y)
     {
         if(tree->getType() == t_and)
         {
-            QGraphicsTextItem *item = scene->addText(QString::fromStdString("and ("+s_weight+")"),font);
+            QGraphicsTextItem *item = scene->addText("and",font);
             item->setPos(x+5,y+5);
         }
         else
         {
-            QGraphicsTextItem *item = scene->addText(QString::fromStdString("or ("+s_weight+")"),font);
+            QGraphicsTextItem *item = scene->addText("or",font);
             item->setPos(x+10,y+5);
         }
         scene->addEllipse(x,y,50,50);
