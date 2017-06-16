@@ -38,10 +38,6 @@ public:
             return index;
         }
 
-        int getWeight() const {
-            return weight;
-        }
-
         Iterator operator++( int ) {
             if (index < parent->getChildren()->size())
                 index++;
@@ -92,7 +88,6 @@ private:
     NodeType type;
     T *data;
     Iterator iterator;
-    int weight;
 
 public:
     Iterator getIterator() {
@@ -130,13 +125,6 @@ public:
         this->weight = 1;
     }
 
-    Node(Node<T> *parent, NodeType type, int weight)
-    {
-        this->parent = parent;
-        this->type = type;
-        this->weight = weight;
-    }
-
     // Leaf
     Node(Node<T> *parent, T *data)
     {
@@ -145,14 +133,6 @@ public:
         this->data = data;
         //random weight
         this->weight = rand()%10;
-    }
-
-    Node(Node<T> *parent, T *data, int weight)
-    {
-        this->parent = parent;
-        this->type = t_leaf;
-        this->data = data;
-        this->weight = weight;
     }
 
     // Destructor

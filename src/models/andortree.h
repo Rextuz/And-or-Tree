@@ -37,23 +37,9 @@ public:
         return newNode;
     }
 
-    Node<T> *addNode(Node<T> *parent, NodeType type, int weight)
-    {
-        Node<T> *newNode = new Node<T>(parent, type, weight);
-        parent->addChild(newNode);
-        return newNode;
-    }
-
     Node<T> *addLeaf(Node<T> *parent, T *data)
     {
         Node<T> *newNode = new Node<T>(parent, data);
-        parent->addChild(newNode);
-        return newNode;
-    }
-
-    Node<T> *addLeaf(Node<T> *parent, T *data, int weight)
-    {
-        Node<T> *newNode = new Node<T>(parent, data, weight);
         parent->addChild(newNode);
         return newNode;
     }

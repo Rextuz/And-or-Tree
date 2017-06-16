@@ -21,8 +21,8 @@ void UTestTree::createTree()
 {
     AndOrTree<LexicalPair> tree(t_or);
     Node<LexicalPair> root = *tree.getRoot();
-    //QCOMPARE(root.getParent(), nullptr);
-    //QCOMPARE(root.getType(), t_or);
+    QCOMPARE(root.getParent(), nullptr);
+    QCOMPARE(root.getType(), t_or);
 }
 
 void UTestTree::addNode()
@@ -31,11 +31,11 @@ void UTestTree::addNode()
     Node<LexicalPair> *root = tree->getRoot();
     Node<LexicalPair> *node = tree->addNode(tree->getRoot(), t_or);
 
-    //QCOMPARE(node->getData(), nullptr);
-    //QCOMPARE(node->getParent(), root);
-    //QCOMPARE(node->getType(), t_or);
+    QCOMPARE(node->getData(), nullptr);
+    QCOMPARE(node->getParent(), root);
+    QCOMPARE(node->getType(), t_or);
 
-    //QCOMPARE(root->getChild(0), node);
+    QCOMPARE(root->getChild(0), node);
 }
 
 void UTestTree::addLeaf()
@@ -49,11 +49,11 @@ void UTestTree::addLeaf()
 
     Node<LexicalPair> *leaf = tree->addLeaf(tree->getRoot(), data);
 
-    //QCOMPARE(leaf->getData(), data);
-    //QCOMPARE(leaf->getParent(), root);
-    //QCOMPARE(leaf->getType(), t_leaf);
+    QCOMPARE(leaf->getData(), data);
+    QCOMPARE(leaf->getParent(), root);
+    QCOMPARE(leaf->getType(), t_leaf);
 
-    //QCOMPARE(root->getChild(0), leaf);
+    QCOMPARE(root->getChild(0), leaf);
 }
 
 void UTestTree::deleteNode()
@@ -66,23 +66,23 @@ void UTestTree::deleteNode()
 
     root->deleteChild(0);
 
-    //QCOMPARE(root->hasChildren(), false);
-    //QCOMPARE(node->getData(), nullptr);
+    QCOMPARE(root->hasChildren(), false);
+    QCOMPARE(node->getData(), nullptr);
 }
 
 void UTestTree::treeSize()
 {
     AndOrTree<LexicalPair> *tree = new AndOrTree<LexicalPair>(t_and);
 
-    //QCOMPARE((int)tree->size(), 1);
+    QCOMPARE((int)tree->size(), 1);
 
     tree->addNode(tree->getRoot(), t_or);
 
-    //QCOMPARE((int)tree->size(), 2);
+    QCOMPARE((int)tree->size(), 2);
 
     Node<LexicalPair> *actions = tree->addNode(tree->getRoot(), t_and);
     tree->addNode(actions, t_and);
     tree->addNode(actions, t_or);
 
-    //QCOMPARE((int)tree->size(), 5);
+    QCOMPARE((int)tree->size(), 5);
 }
